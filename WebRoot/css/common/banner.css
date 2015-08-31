@@ -1,0 +1,21 @@
+.banner {
+	width:1120px;
+	margin: 0 auto;
+}
+.carousel-control .glyphicon-chevron-left {
+	height: 50px;
+  	width: 32px;
+	background: url("../../img/prevBtn.png") 0 0 no-repeat;
+	left: 30px;
+}
+.carousel-control .glyphicon-chevron-right {
+	height: 50px;
+  	width: 32px;
+  	right:30px;
+	background: url("../../img/nextBtn.png") 0 0 no-repeat;
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>img {
+  line-height: 1;
+  height: 400px;
+  width: 100%;
+}

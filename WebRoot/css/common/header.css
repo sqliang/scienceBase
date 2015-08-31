@@ -1,0 +1,10 @@
+body {
+	padding-top: 52px;
+}
+.dropdown-menu {
+	min-width: 124px;
+}
+.navbar-inverse .active {
+  	color: #fff;
+  	background-color: transparent;
+}

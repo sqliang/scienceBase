@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.convention.action.package" value="com.science.action.*" />
+	<constant name="struts.convention.result.path" value="/WEB-INF/jsp/"></constant>
+	<constant name="struts.objectFactory.spring.autoWire.alwaysRespect"
+		value="true" />
+	<package name="mydefault" namespace="/" extends="json-default">
+		<!-- <interceptors>
+			<interceptor name="loginedCheckInterceptor"
+				class="com.trt.interceptor.LoginedCheckInterceptor">
+			</interceptor>
+			<interceptor-stack name="loginedCheckInterceptorStack">
+				<interceptor-ref name="loginedCheckInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+			
+			
+			<interceptor name="loginedCheckInterceptorJsp"
+				class="com.trt.interceptor.LoginedCheckInterceptorJsp">
+			</interceptor>
+			<interceptor-stack name="loginedCheckInterceptorJspStack">
+				<interceptor-ref name="loginedCheckInterceptorJsp" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors> -->
+		<!-- <global-results>
+			<result name="notlogin" type="chain">notlogin</result>
+			<result name="error" type="dispatcher">/jsp/error.jsp</result>
+			<result name="errorwithmsg" type="dispatcher">/jsp/error.jsp?showError=true</result>
+			<result name="notloginjsp" type="dispatcher">/jsp/login.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+			<exception-mapping result="errorwithmsg" exception="com.trt.exception.MessageException"></exception-mapping>
+		</global-exception-mappings> -->
+	</package>
+</struts>

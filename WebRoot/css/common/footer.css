@@ -1,0 +1,65 @@
+.footer{
+    width: 100%;
+    background: url(../../img/common/footBack.png) repeat-x 0 0;
+    height: 180px;
+    color: #999;
+}
+.footer p{
+    margin:0;
+    padding:0;
+    padding-bottom:5px;
+}
+.footer a,.footer a:hover{
+    color:#999;
+    text-decoration: none;
+
+}
+.footer a:hover{
+    color:#FFF;
+}
+.footer p.support{
+    color:#666;
+    padding-top:5px;
+    font-size:12px;
+    font-weight: 500;
+}
+.foot1{
+    width: 1100px;
+    margin: 10px auto 0 auto;
+    height:75px;
+    line-height:75px;
+    font-size:14px;
+    font-weight: 500;
+}
+.foot1 i{
+    display:inline-block;
+    width:38px;
+    height:75px;
+    float:left;
+}
+.foot1 i.tel{
+    background:url(../../img/common/0002.png) no-repeat 0 50%;
+}
+.foot1 i.mail{
+    background:url(../../img/common/0000.png) no-repeat 0 50%;
+}
+.foot1 i.add{
+    background:url(../../img/common/0001.png) no-repeat 0 50%;
+}
+.foot1 span{
+    display:inline-block;
+    height:75px;
+    margin-right:30px;
+    margin-left:8px;
+    float:left;
+}
+.foot2{
+    width: 1100px;
+    margin: 0 auto;
+
+}
+.foot2 p{
+    width: 100%;
+    font-size: 16px;
+    padding-top: 30px;
+}

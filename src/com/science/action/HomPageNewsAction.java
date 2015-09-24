@@ -30,6 +30,10 @@ public class HomPageNewsAction extends BaseAction {
 	private List<Picnews> picnewss;
 	private Newsinfo newsinfo;
 	private Picnews picnews;
+	private String newsId;
+	private List<Newsinfo> newsinfos;
+	private String newsType;
+	private String target;
 	
 
 	public List<Newsinfo> getLastNewss() {
@@ -111,7 +115,43 @@ public class HomPageNewsAction extends BaseAction {
 		this.picnews = picnews;
 	}
 
+	public String getNewsId() {
+		return newsId;
+	}
 
+	public void setNewsId(String newsId) {
+		this.newsId = newsId;
+	}
+	
+	public List<Newsinfo> getNewsinfos() {
+		return newsinfos;
+	}
+
+
+
+	public void setNewsinfos(List<Newsinfo> newsinfos) {
+		this.newsinfos = newsinfos;
+	}
+
+
+
+	public String getNewsType() {
+		return newsType;
+	}
+
+
+
+	public void setNewsType(String newsType) {
+		this.newsType = newsType;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
 
 	@Action(value = "homePage", 
 			results = { 
@@ -128,6 +168,46 @@ public class HomPageNewsAction extends BaseAction {
 			noticeNewss = newsinfoManager.queryNewsinfoByType(2);
 			resReports = newsinfoManager.queryNewsinfoByType(3);
 			resDongTais =  newsinfoManager.queryNewsinfoByType(4);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "queryNewsByType", 
+			results = { 
+			@Result(name = "success", type = "dispatcher", location = "/jsp/list_news.jsp", 
+					params = {"newsinfos","${newsinfos}","target","${target}"}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String queryNewsByType(){
+		try {
+			newsinfos = newsinfoManager.queryNewsinfoByType(Integer.parseInt(newsType));
+			Newsinfo newsinfo = newsinfos.get(0);
+			if(newsinfo.getNewstype() == 1){
+				target = "最近新闻";
+			}else if(newsinfo.getNewstype() == 2){
+				target = "通知公告";
+			}else if(newsinfo.getNewstype() == 3){
+				target = "学术报告";
+			}else {
+				target = "学术动态";
+			}
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "queryNewsById", 
+			results = { 
+			@Result(name = "success", type = "dispatcher", location = "/jsp/detail_news.jsp", 
+					params = {"newsinfo","${newsinfo}"}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String queryNewsById(){
+		try {
+			newsinfo = newsinfoManager.queryNewsinfoById(Integer.parseInt(newsId));
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

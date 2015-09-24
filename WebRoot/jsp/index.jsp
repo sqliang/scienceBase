@@ -32,59 +32,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- header end -->
 <div class="main">
 <!-- banner -->
-	<div class="banner">
-		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-  		  <!-- Indicators -->
-		  <ol class="carousel-indicators">
-		    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-		    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-		    <!-- <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
-		  </ol>
-
-		  <!-- Wrapper for slides -->
-		  <div class="carousel-inner" role="listbox">
-		    <div class="item active">
-		      <img src="/scienceBase/img/demo3.jpg" alt="...">
-		      <div class="carousel-caption">
-		        <h1>tilte 1</h1>
-		      </div>
-		    </div>
-		    <div class="item">
-		      <img src="/scienceBase/img/demo4.jpg" alt="...">
-		      <div class="carousel-caption">
-		        <h1>tilte 4</h1>
-		      </div>
-		    </div>
-		  </div>
-
-		  <!-- Controls -->
-		  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-		    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		    <span class="sr-only">Previous</span>
-		  </a>
-		  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-		    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		    <span class="sr-only">Next</span>
-		  </a>
-		  <!-- Controls end -->
-		</div>
-	</div>
+	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
 	<div class="news-box clearfix">
-		<div class="left-news">
+		<div class="left-news focus" id="pic-news">
+			<ul>
+				<c:forEach var="picnews" items="${picnewss}">
+					<li>
+						<a href="queryNewsById?newsId=${picnews.newsinfonewsid.newsid}" target="_blank">
+							<img src="${picnews.imgurl}"/>
+						</a>
+						<div>${picnews.newsinfonewsid.newstitle}</div>
+			    	</li>
+				</c:forEach>
+			</ul>
 		</div>
 		<div class="right-news">
 			<div class="art-title clearfix">
 				<span class="left-title">最近新闻</span>
 				<span class="right-link">
-					<a href="#" target="_blank">更多&gt;&gt;</a>
+					<a href="queryNewsByType?newsType=1" target="_blank">更多&gt;&gt;</a>
 				</span>
 			</div>
 			<ul class="info-list clearfix">
 				<c:forEach var="lastNews" begin="0" end="6" items="${lastNewss}">
 					<li>
 						<span class="left-con">
-							<a href="#" target="_blank">${lastNews.newstitle }</a>
+							<a href="queryNewsById?newsId=${lastNews.newsid}" target="_blank">${lastNews.newstitle }</a>
 						</span>
 						<span class="news-time">${lastNews.time}</span>
 					</li>
@@ -97,14 +71,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="art-title">
 				<span class="left-title">通知公告</span>
 				<span class="right-link">
-					<a href="#" target="_blank">更多&gt;&gt;</a>
+					<a href="queryNewsByType?newsType=2" target="_blank">更多&gt;&gt;</a>
 				</span>
 			</div>
 			<ul class="info-list clearfix">
 				<c:forEach var="noticeNews" begin="0" end="4" items="${noticeNewss}">
 					<li>
-						<span class="left-con">
-							<a href="#" target="_blank">${noticeNews.newstitle }</a>
+						<span class="left-con list-three">
+							<a href="queryNewsById?newsId=${noticeNews.newsid}" target="_blank">${noticeNews.newstitle }</a>
 						</span>
 						<span class="news-time">${noticeNews.time}</span>
 					</li>
@@ -115,14 +89,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="art-title">
 				<span class="left-title">学术报告</span>
 				<span class="right-link">
-					<a href="#" target="_blank">更多&gt;&gt;</a>
+					<a href="queryNewsByType?newsType=3" target="_blank">更多&gt;&gt;</a>
 				</span>
 			</div>
 			<ul class="info-list clearfix">
 				<c:forEach var="resReport" begin="0" end="4" items="${resReports}">
 					<li>
-						<span class="left-con">
-							<a href="#" target="_blank">${resReport.newstitle }</a>
+						<span class="left-con list-three">
+							<a href="queryNewsById?newsId=${resReport.newsid}" target="_blank">${resReport.newstitle }</a>
 						</span>
 						<span class="news-time">${resReport.time}</span>
 					</li>
@@ -133,14 +107,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="art-title">
 				<span class="left-title">学术动态</span>
 				<span class="right-link">
-					<a href="#" target="_blank">更多&gt;&gt;</a>
+					<a href="queryNewsByType?newsType=4" target="_blank">更多&gt;&gt;</a>
 				</span>
 			</div>
 			<ul class="info-list clearfix">
 				<c:forEach var="resDongTai" begin="0" end="4" items="${resDongTais}">
 						<li>
-							<span class="left-con">
-								<a href="#" target="_blank">${resDongTai.newstitle }</a>
+							<span class="left-con list-three">
+								<a href="queryNewsById?newsId=${resDongTai.newsid}" target="_blank">${resDongTai.newstitle }</a>
 							</span>
 							<span class="news-time">${resDongTai.time}</span>
 						</li>
@@ -155,5 +129,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- footer end -->
 <script src="/scienceBase/js/lib/jquery.min.js"></script>
 <script src="/scienceBase/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="/scienceBase/js/sl.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.focus("#pic-news");
+});
+</script>
 </body>
 </html>

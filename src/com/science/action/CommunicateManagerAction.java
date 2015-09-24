@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.science.domain.Communicateinfo;
 import com.science.domain.Pubclassinfo;
 import com.science.serviceManager.CommunicateinfoManager;
+import com.science.serviceManager.JManager;
 import com.science.serviceManager.PubclassinfoManager;
+import com.science.serviceManager.SubmenuManager;
+import com.science.util.string.StringUtil;
 
 public class CommunicateManagerAction extends BaseAction {
 
@@ -21,13 +24,23 @@ public class CommunicateManagerAction extends BaseAction {
 	private CommunicateinfoManager communicateinfoManager;
 	@Autowired
 	private PubclassinfoManager pubclassinfoManager;
+	@Autowired
+	private SubmenuManager submenuManager;
+	@Autowired
+	private JManager jManager;
 	
 	private List<Communicateinfo> communicateinfos;
 	private List<Pubclassinfo> pubclassinfos;
-	private long communicateType;
-	private String target;
+	private String communicateType;
+	private String subMenuName;
 	private Communicateinfo communicateinfo;
 	private Pubclassinfo pubclassinfo;
+	private long mainMenuId;
+	
+	private String pageNow;
+	private long limit;
+	private long start;
+	private long totalPages;
 	
 	public List<Communicateinfo> getCommunicateinfos() {
 		return communicateinfos;
@@ -41,17 +54,12 @@ public class CommunicateManagerAction extends BaseAction {
 	public void setPubclassinfos(List<Pubclassinfo> pubclassinfos) {
 		this.pubclassinfos = pubclassinfos;
 	}
-	public long getCommunicateType() {
+	
+	public String getCommunicateType() {
 		return communicateType;
 	}
-	public void setCommunicateType(long communicateType) {
+	public void setCommunicateType(String communicateType) {
 		this.communicateType = communicateType;
-	}
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
 	}
 	public Communicateinfo getCommunicateinfo() {
 		return communicateinfo;
@@ -65,26 +73,62 @@ public class CommunicateManagerAction extends BaseAction {
 	public void setPubclassinfo(Pubclassinfo pubclassinfo) {
 		this.pubclassinfo = pubclassinfo;
 	}
-	
+	public String getSubMenuName() {
+		return subMenuName;
+	}
+	public void setSubMenuName(String subMenuName) {
+		this.subMenuName = subMenuName;
+	}
+	public long getMainMenuId() {
+		return mainMenuId;
+	}
+	public void setMainMenuId(long mainMenuId) {
+		this.mainMenuId = mainMenuId;
+	}
+	public String getPageNow() {
+		return pageNow;
+	}
+	public void setPageNow(String pageNow) {
+		this.pageNow = pageNow;
+	}
+	public long getLimit() {
+		return limit;
+	}
+	public void setLimit(long limit) {
+		this.limit = limit;
+	}
+	public long getStart() {
+		return start;
+	}
+	public void setStart(long start) {
+		this.start = start;
+	}
+	public long getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(long totalPages) {
+		this.totalPages = totalPages;
+	}
 	@Action(value = "/queryCommuicateByType", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_communicate.jsp", 
-					params = {"communicateinfos","${communicateinfos}","target","${target}"}),
+					params = {"communicateinfos","${communicateinfos}","communicateType","${communicateType}",
+							  "totalPages","${totalPages}","pageNow","${pageNow}",
+							  "subMenuName","${subMenuName}","mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryCommuicateByType(){
 		try {
-			communicateinfos = communicateinfoManager.queryCommuicateByType(communicateType);
-			if(communicateinfos != null){
-				long commType = communicateinfos.get(0).getCommunicatetype();
-				if(commType == 1){
-					target = "国内交流";
-				}else{
-					target = "国际交流";
-				}
-			}
+			long totalCount = Long.parseLong(jManager.simpleSQL("select count(*) from communicateinfo where communicateType=?",Integer.parseInt(communicateType)));
+			limit = 12;
+			start = (Integer.parseInt(pageNow) - 1)*limit;
+			totalPages = (totalCount + limit -1)/limit;
+			communicateinfos = communicateinfoManager.queryCommuicateByType(Integer.parseInt(communicateType),start,limit);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}
@@ -92,13 +136,15 @@ public class CommunicateManagerAction extends BaseAction {
 	@Action(value = "/queryPubclassBytime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_pubclass.jsp", 
-					params = {"pubclassinfos","${pubclassinfos}","target","${target}"}),
+					params = {"pubclassinfos","${pubclassinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryPubclassBytime(){
 		try {
-			target="开放课题";
 			pubclassinfos = pubclassinfoManager.queryPubclassBytime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

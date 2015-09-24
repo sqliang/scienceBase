@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>研究队伍</title>
+    <title>${subMenuName}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
@@ -34,20 +34,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- banner -->
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
 		<div class="content-article">
 			<div class="article-title">
-          		<h3>${target}列表</h3>
+          		<h3>${subMenuName}列表</h3>
        		</div>
 			<div class="content-con">
 				<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${qianRenPlain}</span>
+                    </div>
                     <div class="leader-list">
-                    	<c:forEach var="memberinfo" items="${memberinfos}">
+                    	<c:forEach var="memberinfo" items="${qianRenPlains}">
 								<span>
-									<a href="${memberinfo.memid}">
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
 										<font>
 											${memberinfo.memname}
 										</font>
@@ -55,11 +64,206 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</span>
                     	</c:forEach>
                     </div>
-          		</div>				
+                    </div>
+                    
+                    <div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${changJiangPerson}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${changJiangPersons}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>	
+          		
+          		<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${foreignMingshi}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${foreignMingshis}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>			
+          		
+          		<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${jieChuPerson}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${jieChuPersons}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>
+          		
+          		<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${baiQianWan}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${baiMemberinfos}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>	
+          		
+          		<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${youxiuJiJin}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${youxiuJiJins}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>	
+          		
+          		<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${newShiJi}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${newShiJis}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>	
+          		
+          		<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${baiPerson}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${baiPersons}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>
+          		
+          		<div class="news-list">
+                    <div class="leader-title">
+                    	<span style="">${huangShan}</span>
+                    </div>
+                    <div class="leader-list">
+                    	<c:forEach var="memberinfo" items="${huangShans}">
+								<span>
+									<c:choose>
+										<c:when test="${memberinfo.memlink == '' || memberinfo.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${memberinfo.memlink}"  target="_blank">
+										</c:otherwise>
+									</c:choose>
+										<font>
+											${memberinfo.memname}
+										</font>
+									</a>
+								</span>
+                    	</c:forEach>
+                    </div>
+          		</div>													
+          				
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
 				
 	

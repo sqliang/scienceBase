@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>list</title>
+    <title>${subMenuName}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
@@ -34,13 +34,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- banner -->
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
 		<div class="content-article">
 			<div class="article-title">
-          		<h3>${target}列表</h3>
+          		<h3>${subMenuName}列表</h3>
        		</div>
 			<div class="content-con">
 				<div class="news-list">
@@ -51,7 +50,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<h2 class="label-title">主任：</h2>
                     	<c:forEach var="leader" items="${masterPersNow}">
 								<span>
-									<a href="${leader.leaderid}">
+									<c:choose>
+										<c:when test="${leader.memberinfomemid.memlink == '' || leader.memberinfomemid.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${leader.memberinfomemid.memlink}" target="_blank">
+										</c:otherwise>
+									</c:choose>
+									
 										<font>
 											${leader.memberinfomemid.memname}
 										</font>
@@ -61,7 +68,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<h2 class="label-title">副主任：</h2>
                     	<c:forEach var="leader" items="${fuZhuRensNow}">
 								<span>
-									<a href="${leader.leaderid}">
+									<c:choose>
+										<c:when test="${leader.memberinfomemid.memlink == '' || leader.memberinfomemid.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${leader.memberinfomemid.memlink}" target="_blank">
+										</c:otherwise>
+									</c:choose>
 										<font>
 											${leader.memberinfomemid.memname}
 										</font>
@@ -69,10 +83,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</span>
                     	</c:forEach>
                     	
-                    	<h2 class="label-title">秘书：</h2>
+                    	<h2 class="label-title">委员：</h2>
                     	<c:forEach var="leader" items="${miShuNow}">
 								<span>
-									<a href="${leader.leaderid}">
+									<c:choose>
+										<c:when test="${leader.memberinfomemid.memlink == '' || leader.memberinfomemid.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${leader.memberinfomemid.memlink}" target="_blank">
+										</c:otherwise>
+									</c:choose>
 										<font>
 											${leader.memberinfomemid.memname}
 										</font>
@@ -89,7 +110,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<h2 class="label-title">主任：</h2>
                     	<c:forEach var="leader" items="${masterPersPast}">
 								<span>
-									<a href="${leader.leaderid}">
+									<c:choose>
+										<c:when test="${leader.memberinfomemid.memlink == '' || leader.memberinfomemid.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${leader.memberinfomemid.memlink}" target="_blank">
+										</c:otherwise>
+									</c:choose>
 										<font>
 											${leader.memberinfomemid.memname}
 										</font>
@@ -99,7 +127,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<h2 class="label-title">副主任：</h2>
                     	<c:forEach var="leader" items="${fuZhuRensPast}">
 								<span>
-									<a href="${leader.leaderid}">
+									<c:choose>
+										<c:when test="${leader.memberinfomemid.memlink == '' || leader.memberinfomemid.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${leader.memberinfomemid.memlink}" target="_blank">
+										</c:otherwise>
+									</c:choose>
 										<font>
 											${leader.memberinfomemid.memname}
 										</font>
@@ -110,7 +145,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<h2 class="label-title">秘书：</h2>
                     	<c:forEach var="leader" items="${miShuPast}">
 								<span>
-									<a href="${leader.leaderid}">
+									<c:choose>
+										<c:when test="${leader.memberinfomemid.memlink == '' || leader.memberinfomemid.memlink == null}">
+											<a href="javascript:;">
+										</c:when>
+										<c:otherwise>
+											<a href="${leader.memberinfomemid.memlink}" target="_blank">
+										</c:otherwise>
+									</c:choose>
 										<font>
 											${leader.memberinfomemid.memname}
 										</font>
@@ -124,10 +166,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
-				
-	
 </div>
 <div class="useful-link"></div>
 <!-- 引入底部 -->

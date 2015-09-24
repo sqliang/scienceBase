@@ -16,5 +16,7 @@ public interface OrganizationManager extends BaseManager<Organization> {
 	public List<Organization> find(String sqlkey);
 	
 	public List<Organization> findOrderByTime();
+	
+	public Organization queryOrgById(long orgId);
 
 }

@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.science.domain.Evaluationinfo;
 import com.science.domain.Magsysinfo;
 import com.science.serviceManager.EvaluationinfoManager;
+import com.science.serviceManager.JManager;
 import com.science.serviceManager.MagsysinfoManager;
+import com.science.serviceManager.SubmenuManager;
+import com.science.util.string.StringUtil;
 
 public class MaginfoManagerAction extends BaseAction {
 	
@@ -19,12 +22,21 @@ public class MaginfoManagerAction extends BaseAction {
 	private MagsysinfoManager magsysinfoManager;
 	@Autowired
 	private EvaluationinfoManager evaluationinfoManager;
+	@Autowired
+	private SubmenuManager submenuManager;
+	@Autowired
+	private JManager jManager;
 	
 	private List<Evaluationinfo> evaluationinfos;
 	private List<Magsysinfo> magsysinfos;
-	private String target;
+	private String subMenuName;
+	private long mainMenuId;
 	private Magsysinfo magsysinfo;
 	private long magsysid;
+	private String pageNow;
+	private long limit;
+	private long start;
+	private long totalPages;
 	
 	private  Evaluationinfo evaluationinfo;
 	
@@ -39,13 +51,6 @@ public class MaginfoManagerAction extends BaseAction {
 	}
 	public void setMagsysinfos(List<Magsysinfo> magsysinfos) {
 		this.magsysinfos = magsysinfos;
-	}
-	
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
 	}
 	
 	public Magsysinfo getMagsysinfo() {
@@ -67,16 +72,56 @@ public class MaginfoManagerAction extends BaseAction {
 		this.evaluationinfo = evaluationinfo;
 	}
 	
+	public String getSubMenuName() {
+		return subMenuName;
+	}
+	public void setSubMenuName(String subMenuName) {
+		this.subMenuName = subMenuName;
+	}
+	public long getMainMenuId() {
+		return mainMenuId;
+	}
+	public void setMainMenuId(long mainMenuId) {
+		this.mainMenuId = mainMenuId;
+	}
+	
+	public String getPageNow() {
+		return pageNow;
+	}
+	public void setPageNow(String pageNow) {
+		this.pageNow = pageNow;
+	}
+	public long getLimit() {
+		return limit;
+	}
+	public void setLimit(long limit) {
+		this.limit = limit;
+	}
+	
+	public long getStart() {
+		return start;
+	}
+	public void setStart(long start) {
+		this.start = start;
+	}
+	public long getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(long totalPages) {
+		this.totalPages = totalPages;
+	}
 	@Action(value = "/queryEvaluationBytime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_evaluate.jsp", 
-					params = {"evaluationinfos","${evaluationinfos}"}),
+					params = {"evaluationinfos","${evaluationinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryEvaluationBytime(){
 		try {
-			target = "考核报告";
 			evaluationinfos = evaluationinfoManager.queryEvaluationBytime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -86,15 +131,24 @@ public class MaginfoManagerAction extends BaseAction {
 	@Action(value = "/queryMagsysByTime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_magsys.jsp", 
-					params = {"magsysinfos","${magsysinfos}","target","${target}"}),
+					params = {"magsysinfos","${magsysinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}","totalPages","${totalPages}",
+							  "pageNow","${pageNow}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryMagsysByTime(){
 		try {
-			target="管理制度";
-			magsysinfos = magsysinfoManager.queryMagsysBytime();
+			long totalCount = Long.parseLong(jManager.simpleSQL("select count(*) from magsysinfo"));
+			limit = 10;
+			start = (Integer.parseInt(pageNow) - 1)*limit;
+			totalPages = (totalCount + limit -1)/limit;
+			magsysinfos =  magsysinfoManager.querMagsysFenyeByTime(start, limit);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return ERROR;
 		}
 	}
@@ -125,6 +179,8 @@ public class MaginfoManagerAction extends BaseAction {
 	public String queryMagsysByid(){
 		try {
 			magsysinfo = magsysinfoManager.queryMagsysByid(magsysid);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

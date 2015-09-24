@@ -1,11 +1,14 @@
 package com.science.serviceManagerImpl;
 
 
+import com.science.domain.Newsinfo;
 import com.science.domain.Organization;
 import com.science.serviceManager.OrganizationManager;
 import com.science.dao.OrganizationDao;
+
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Component
@@ -37,5 +40,10 @@ public class OrganizationManagerImpl extends BaseManagerImpl<Organization> imple
 	public List<Organization> findOrderByTime() {
 		List<Organization> organizations = findbyHql("from Organization order by time Desc");
 		return organizations;
+	}
+	@Override
+	public Organization queryOrgById(long orgId) {
+		Organization organization = findbyHqlUnique("from Organization where orgId=?", orgId);
+		return organization;
 	}
 }

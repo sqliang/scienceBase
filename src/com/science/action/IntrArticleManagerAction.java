@@ -10,16 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.science.domain.Introduceinfo;
 import com.science.domain.Picnews;
 import com.science.serviceManager.IntroduceinfoManager;
+import com.science.serviceManager.SubmenuManager;
+import com.science.util.string.StringUtil;
 
 public class IntrArticleManagerAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private IntroduceinfoManager introduceinfoManager;
+	@Autowired
+	private SubmenuManager submenuManager;
 	
 	private Introduceinfo introduceinfo;//概况
 	private List<Introduceinfo> introduceinfos;
 	private long artType;
+	private String subMenuName;
+	private long mainMenuId;
 	
 	public Introduceinfo getIntroduceinfo() {
 		return introduceinfo;
@@ -41,15 +47,30 @@ public class IntrArticleManagerAction extends BaseAction {
 		this.introduceinfos = introduceinfos;
 	}
 	
+	public String getSubMenuName() {
+		return subMenuName;
+	}
+	public void setSubMenuName(String subMenuName) {
+		this.subMenuName = subMenuName;
+	}
+	public long getMainMenuId() {
+		return mainMenuId;
+	}
+	public void setMainMenuId(long mainMenuId) {
+		this.mainMenuId = mainMenuId;
+	}
 	@Action(value = "/queryIntrInfo", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/person_edu_detail.jsp", 
-					params = {"introduceinfo","${introduceinfo}"}),
+					params = {"introduceinfo","${introduceinfo}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryIntrInfo(){
 		try {
 			introduceinfo = introduceinfoManager.queryLabIntrInfo(artType);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

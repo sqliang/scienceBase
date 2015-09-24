@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>发明专利</title>
+    <title>${subMenuName}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
@@ -34,50 +34,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- banner -->
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
 		<div class="content-article">
 			<div class="article-title">
-          		<h3>${target}列表</h3>
+          		<h3>${subMenuName}列表</h3>
        		</div>
 			<div class="content-con">
-				<ul class="clearfix">
-					<c:forEach var="paptentinfo" items="${paptentinfos}">
-						<li class="class-list paptent-list">
-			                 <div class="leader-list">
-			                 	<span class="label-title">专利名称：</span>
-			                     <span>${paptentinfo.paptentname}</span>
-			                  </div>
-			                 <div class="leader-list">
-			                 	<span class="label-title">专利类型：</span>
-			                    <span>${paptentinfo.paptenttype}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">专利作者：</span>
-			                    <span>${paptentinfo.paptentauthors}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">审核状态：</span>
-			                    <span>${paptentinfo.paptentstatus}</span>
-			                  </div>
-			                   <div class="leader-list">
-			                    <span class="label-title">批准时间：</span>
-			                    <span>${paptentinfo.agreetime}</span>
-			                  </div>
-			                   <div class="leader-list">
-			                    <span class="label-title">专利简介：</span>
-			                    <span>${paptentinfo.paptentintr}</span>
-			                  </div>
-		          		</li>				
-                    </c:forEach>
-				</ul>
-                    
+				<div style="height:20px;"></div>
+				<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="font-weight:bold;text-align:center;">#</th>
+									<th style="font-weight:bold;text-align:center;">专利名称</th>
+									<th style="font-weight:bold;text-align:center;">专利类型</th>
+									<th style="font-weight:bold;text-align:center;">专利作者</th>
+									<th style="font-weight:bold;text-align:center;">审核状态</th>
+									<th style="font-weight:bold;text-align:center;">批准时间</th>
+									<th style="font-weight:bold;text-align:center;">专利简介</th>
+								</tr>
+							</thead>
+							<tbody>
+                    	<c:forEach varStatus="status" var="paptentinfo" items="${paptentinfos}">
+							 <tr>
+							 	<td style="text-align:center;">${status.index + 1}</td>
+								<td style="text-align:center;">${paptentinfo.paptentname}</td>
+								<td style="text-align:center;">${paptentinfo.paptenttype}</td>
+								<td style="text-align:center;">${paptentinfo.paptentauthors}</td>
+								<td style="text-align:center;">${paptentinfo.paptentstatus}</td>
+								<td style="text-align:center;">${paptentinfo.agreetime}</td>
+								<td style="text-align:center;">${paptentinfo.paptentintr}</td>
+							 </tr>
+                    	</c:forEach>
+							</tbody>
+						</table>
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
 				
 	

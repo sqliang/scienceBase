@@ -12,13 +12,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>博士后</title>
+    <title>${target}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/banner.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/footer.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/list_and_detail.css" />
+    <style>
+    	.main-content .content-article {
+			  width: 100%;
+			  color: #333;
+			  min-height: 800px;
+			  height: auto;
+			  float: right;
+			  padding-left: 0px;
+			  border:0;
+		}
+    </style>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,7 +45,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- banner -->
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
@@ -44,22 +54,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        		</div>
 			<div class="content-con">
 				<div class="news-list">
-                    <div class="leader-list">
-                    	<c:forEach var="memberinfo" items="${memberinfos}">
-								<span>
-									<a href="${memberinfo.memid}">
+                    <h4 class="title-bar">
+                        <span class="topic-name">${target}标题</span>
+                        <span class="post-time">发布时间</span>
+                    </h4>
+                    <ul>
+                    	<c:forEach var="newsinfo" items="${newsinfos}">
+	                    	<li>
+								<span class="topic-name">
+									<a href="queryNewsById?newsId=${newsinfo.newsid}" class="topic-link">
 										<font>
-											${memberinfo.memname}
+											${newsinfo.newstitle}
 										</font>
 									</a>
 								</span>
+								<span class="post-time">
+									${newsinfo.time}
+								</span>
+							</li>
                     	</c:forEach>
-                    </div>
+					</ul>
           		</div>				
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
 		</div>
 				
 	

@@ -284,7 +284,7 @@ public class BaseDao<T extends Serializable> {
 	}
 
 	/**
-	 * 通过编写hql查询
+	 * 通过编写hql查询,来进行分页
 	 * 
 	 * @param hql
 	 *            编写的hql
@@ -292,7 +292,7 @@ public class BaseDao<T extends Serializable> {
 	 *            hql中需要注入的参数 @ 抛出异常，方便spring处理
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findByHql(String hql, int start, int limit,
+	public List<T> findByHqlP(String hql, int start, int limit,
 			final Object... objects) {
 		if (hql.trim().startsWith("and")) {
 			hql = "from " + entityClass.getSimpleName() + " where 1 = 1 " + hql;

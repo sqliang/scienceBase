@@ -18,5 +18,7 @@ public interface MagsysinfoManager extends BaseManager<Magsysinfo> {
 	public List<Magsysinfo> queryMagsysBytime();
 	
 	public Magsysinfo queryMagsysByid(long magsysid);
+	
+	public List<Magsysinfo> querMagsysFenyeByTime(long start,long limit);
 
 }

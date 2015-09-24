@@ -58,7 +58,7 @@ public class Paperinfo implements Serializable {
 		this.papername=papername;
 
 	}
-	@Column(name="paperName",length=100)
+	@Column(name="paperName",length=400)
 	public  String getPapername(){
 		return this.papername;
 
@@ -76,7 +76,7 @@ public class Paperinfo implements Serializable {
 		this.paperjounal=paperjounal;
 
 	}
-	@Column(name="paperJounal",length=200)
+	@Column(name="paperJounal",length=400)
 	public  String getPaperjounal(){
 		return this.paperjounal;
 
@@ -85,7 +85,7 @@ public class Paperinfo implements Serializable {
 		this.journalinfo=journalinfo;
 
 	}
-	@Column(name="JournalInfo",length=60)
+	@Column(name="JournalInfo",length=400)
 	public  String getJournalinfo(){
 		return this.journalinfo;
 

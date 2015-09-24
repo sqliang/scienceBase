@@ -7,15 +7,19 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.clause.ModelClause.MainModelClause;
 import com.science.domain.Acainfo;
 import com.science.domain.Leaderinfo;
 import com.science.domain.Memberinfo;
 import com.science.domain.Organization;
 import com.science.domain.Resdirection;
+import com.science.domain.Submenu;
 import com.science.serviceManager.AcainfoManager;
 import com.science.serviceManager.LeaderinfoManager;
 import com.science.serviceManager.OrganizationManager;
 import com.science.serviceManager.ResdirectionManager;
+import com.science.serviceManager.SubmenuManager;
+import com.science.util.string.StringUtil;
 
 public class LabInfoManagerAction extends BaseAction {
 
@@ -28,6 +32,8 @@ public class LabInfoManagerAction extends BaseAction {
 	private LeaderinfoManager leaderinfoManager;
 	@Autowired
 	private AcainfoManager acainfoManager;
+	@Autowired
+	private SubmenuManager submenuManager;
 	
 	private List<Resdirection> resdirections; //研究方向
 	private List<Organization> organizations;//机构设置
@@ -43,7 +49,8 @@ public class LabInfoManagerAction extends BaseAction {
 	private List<Acainfo> materAcasPast;
 	private List<Acainfo> fuAcasPast;
 	private List<Acainfo> singleAcasPast;
-	private String target;
+	private String subMenuName;
+	private long mainMenuId;
 	private List<Leaderinfo> leaderinfos;
 	private List<Acainfo> acainfos;
 	
@@ -51,6 +58,8 @@ public class LabInfoManagerAction extends BaseAction {
 	private Organization organization;
 	private Leaderinfo leaderinfo;
 	private Acainfo acainfo;
+	private String orgId;
+	private String dirId;
 	
 
 	public List<Resdirection> getResdirections() {
@@ -166,13 +175,6 @@ public class LabInfoManagerAction extends BaseAction {
 		this.miShuPast = miShuPast;
 	}
 	
-	public String getTarget() {
-		return target;
-	}
-
-	public void setTarget(String target) {
-		this.target = target;
-	}
 	public List<Leaderinfo> getLeaderinfos() {
 		return leaderinfos;
 	}
@@ -220,18 +222,48 @@ public class LabInfoManagerAction extends BaseAction {
 	public void setAcainfo(Acainfo acainfo) {
 		this.acainfo = acainfo;
 	}
+	
+	public String getSubMenuName() {
+		return subMenuName;
+	}
+
+	public void setSubMenuName(String subMenuName) {
+		this.subMenuName = subMenuName;
+	}
+
+	public long getMainMenuId() {
+		return mainMenuId;
+	}
+
+	public void setMainMenuId(long mainMenuId) {
+		this.mainMenuId = mainMenuId;
+	}
+	public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+
+	public String getDirId() {
+		return dirId;
+	}
+
+	public void setDirId(String dirId) {
+		this.dirId = dirId;
+	}
 
 	@Action(value = "/queryAcainfos", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_aca.jsp", 
 					params = {"materAcasNow","${materAcasNow}","fuAcasNow","${fuAcasNow}","singleAcasNow","${singleAcasNow}",
 							  "materAcasPast","${materAcasPast}","fuAcasPast","${fuAcasPast}","singleAcasPast","${singleAcasPast}",
-							  "target","${targeet}"}),
+							  "subMenuName","${subMenuName}","mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryAcainfos(){
 		try {
-			target="委员会成员";
 			materAcasNow = acainfoManager.queryAcainfosByTwoType(1, 1);
 			fuAcasNow = acainfoManager.queryAcainfosByTwoType(1, 2);
 			singleAcasNow = acainfoManager.queryAcainfosByTwoType(1, 3);
@@ -239,6 +271,8 @@ public class LabInfoManagerAction extends BaseAction {
 			materAcasPast = acainfoManager.queryAcainfosByTwoType(0, 1);
 			fuAcasPast = acainfoManager.queryAcainfosByTwoType(0, 2);
 			singleAcasPast = acainfoManager.queryAcainfosByTwoType(0, 3);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -251,13 +285,13 @@ public class LabInfoManagerAction extends BaseAction {
 					params = {"masterPersNow","${masterPersNow}","fuZhuRensNow","${fuZhuRensNow}",
 							  "masterPersPast","${masterPersPast}","fuZhuRensPast","${fuZhuRensPast}",
 							  "miShuNow","${miShuNow}","miShuPast","${miShuPast}",
-							  "target","${target"
+							  "subMenuName","${subMenuName}","mainMenuId","${mainMenuId}"
 							  }),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryLeaderinfos(){
 		try {
-			target="领导成员";
+			//subMenuName="领导成员";
 			masterPersNow = leaderinfoManager.queryLeaderinfosByTwoType(1, 1);
 			fuZhuRensNow = leaderinfoManager.queryLeaderinfosByTwoType(1, 2);
 			miShuNow = leaderinfoManager.queryLeaderinfosByTwoType(1, 3);
@@ -265,6 +299,8 @@ public class LabInfoManagerAction extends BaseAction {
 			masterPersPast = leaderinfoManager.queryLeaderinfosByTwoType(0, 1);
 			fuZhuRensPast = leaderinfoManager.queryLeaderinfosByTwoType(0, 2);
 			miShuPast = leaderinfoManager.queryLeaderinfosByTwoType(0, 3);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			
 			return SUCCESS;
 		} catch (Exception e) {
@@ -275,29 +311,71 @@ public class LabInfoManagerAction extends BaseAction {
 	@Action(value = "/queryOrganizations", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_organ.jsp", 
-					params = {"organizations","${organizations}","target","${target}"}),
+					params = {"organizations","${organizations}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryOrganizations(){
 		try {
 			organizations = organizationManager.findAll();
-			target = "机构设置";
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
 		}
 	}
 	
+	@Action(value = "queryOrgnaizationById", 
+			results = { 
+			@Result(name = "success", type = "dispatcher", location = "/jsp/detail_org.jsp", 
+					params = {"organization","${organization}","subMenuName","${subMenuName}",
+					  		  "mainMenuId","${mainMenuId}"}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String queryOrgnaizationById(){
+		try {
+			organization = organizationManager.queryOrgById(Integer.parseInt(orgId));
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+
+	
 	@Action(value = "/queryResdirections", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_resdirections.jsp", 
-					params = {"resdirections","${resdirections}","target","${target}"}),
+					params = {"resdirections","${resdirections}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryResdirections(){
 		try {
 			resdirections = resdirectionManager.findAllOrderyByTime();
-			target = "研究方向";
+			//subMenuName = "研究方向";
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "queryResdiretById", 
+			results = { 
+			@Result(name = "success", type = "dispatcher", location = "/jsp/detail_resdir.jsp", 
+					params = {"resdirection","${resdirection}","subMenuName","${subMenuName}",
+					  "mainMenuId","${mainMenuId}"}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String queryResdiretById(){
+		try {
+			resdirection = resdirectionManager.queryResdirById(Integer.parseInt(dirId));
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>科普教育</title>
+    <title>${subMenuName}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
@@ -34,34 +34,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- banner -->
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
 		<div class="content-article">
 			<div class="article-title">
-          		<h3>${target}列表</h3>
+          		<h3>${subMenuName}列表</h3>
        		</div>
 			<div class="content-con">
-				<ul class="clearfix">
-					<c:forEach var="scienceedu" items="${scienceedus}">
-						<li class="class-list resource-list">
-			                 <div class="leader-list">
-			                 	<span class="label-title">科普主题：</span>
-			                     <span>${scienceedu.sciencetitle}</span>
-			                  </div>
-			                 <div class="leader-list">
-			                 	<span class="label-title">主要内容：</span>
-			                    <span>${scienceedu.content}</span>
-			                  </div>
-		          		</li>				
-                    </c:forEach>
-				</ul>
+				<div style="height:20px;"></div>
+				<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="font-weight:bold;text-align:center;">#</th>
+									<th style="font-weight:bold;text-align:center;">科普主题</th>
+									<th style="font-weight:bold;text-align:center;">主要内容</th>
+									<th style="font-weight:bold;text-align:center;">奖励类型</th>
+									<th style="font-weight:bold;text-align:center;">完成人</th>
+									<th style="font-weight:bold;text-align:center;">奖励简介</th>
+								</tr>
+							</thead>
+							<tbody>
+                    	<c:forEach varStatus="status" var="scienceedu" items="${scienceedus}">
+							 <tr>
+							 	<td style="text-align:center;">${status.index + 1}</td>
+								<td style="text-align:center;">${scienceedu.sciencetitle}</td>
+								<td style="text-align:center;">${scienceedu.content}</td>
+							 </tr>
+                    	</c:forEach>
+							</tbody>
+						</table>
                     
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
 				
 	

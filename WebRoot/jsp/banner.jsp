@@ -15,16 +15,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img src="/scienceBase/img/demo3.jpg" alt="">
-      <div class="carousel-caption">
-        <h1>tilte 1</h1>
-      </div>
+      <img src="/scienceBase/img/hfutphoto2.jpg" alt="">
     </div>
     <div class="item">
-      <img src="/scienceBase/img/demo4.jpg" alt="">
-      <div class="carousel-caption">
-        <h1>tilte 4</h1>
-      </div>
+      <img src="/scienceBase/img/hfutphoto4.jpg" alt="">
     </div>
   </div>
 

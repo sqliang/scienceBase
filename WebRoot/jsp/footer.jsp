@@ -7,10 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="foot1">
         <i class="add"></i>
         <span>合肥市包河区屯溪路193号合肥工业大学 / 邮编：230009</span>
-        <i class="mail"></i>
-        <span>heheh@qq.com</span>
-        <i class="tel"></i>
-        <span>联系电话:0551-62901400</span>
     </div>
     <div class="foot2">
         <p class="copyright">Copyright 2015

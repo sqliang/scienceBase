@@ -16,4 +16,6 @@ public interface NewsinfoManager extends BaseManager<Newsinfo> {
 	public List<Newsinfo> find(String sqlkey);
 
 	public List<Newsinfo> queryNewsinfoByType(long newsType);
+	
+	public Newsinfo queryNewsinfoById(long newsId);
 }

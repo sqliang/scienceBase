@@ -16,5 +16,7 @@ public interface ProjectinfoManager extends BaseManager<Projectinfo> {
 	public List<Projectinfo> find(String sqlkey);
 	
 	public List<Projectinfo> queryProjectOrderBytime();
+	
+	public List<Projectinfo> queryProjectByFenye(long start, long limit);
 
 }

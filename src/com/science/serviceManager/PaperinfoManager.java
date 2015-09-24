@@ -16,5 +16,7 @@ public interface PaperinfoManager extends BaseManager<Paperinfo> {
 	public List<Paperinfo> find(String sqlkey);
 	
 	public List<Paperinfo> queryPaperOrderByTime();
+	
+	public List<Paperinfo> queryPaperByFenye(long start,long limit);
 
 }

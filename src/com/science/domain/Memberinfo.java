@@ -28,16 +28,20 @@ public class Memberinfo implements Serializable {
 
 	private long memid;
 	private String memname;
-	private long memsex;
-	private long memage;
 	private String memdegree;
 	private String memjobtitle;
-	private String memtype;
-	private String memchenghao;
+	private String teachertype;
 	private long memjobage;
+	private String opencourse;
+	private String classgrade;
+	private String sciencegrade;
 	private long foreigntype;
 	private String foreginorgname;
 	private String foreignurl;
+	private String memtype;
+	private long yuanshitype;
+	private String perplain;
+	private String memlink;
 	//对应从表：Leaderinfo
 	private List<Leaderinfo> leaderinfomemids;
 	public static  final Memberinfo NULL =new MemberinfoNULL();
@@ -110,24 +114,6 @@ public class Memberinfo implements Serializable {
 		return this.memname;
 
 	}
-	public  void setMemsex(long memsex){
-		this.memsex=memsex;
-
-	}
-	@Column(name="memSex",length=22)
-	public  long getMemsex(){
-		return this.memsex;
-
-	}
-	public  void setMemage(long memage){
-		this.memage=memage;
-
-	}
-	@Column(name="memAge",length=22)
-	public  long getMemage(){
-		return this.memage;
-
-	}
 	public  void setMemdegree(String memdegree){
 		this.memdegree=memdegree;
 
@@ -144,15 +130,6 @@ public class Memberinfo implements Serializable {
 	@Column(name="memJobTitle",length=20)
 	public  String getMemjobtitle(){
 		return this.memjobtitle;
-
-	}
-	public  void setMemchenghao(String memchenghao){
-		this.memchenghao=memchenghao;
-
-	}
-	@Column(name="memChengHao",length=100)
-	public  String getMemchenghao(){
-		return this.memchenghao;
 
 	}
 	public  void setMemjobage(long memjobage){
@@ -197,5 +174,54 @@ public class Memberinfo implements Serializable {
 	}
 	public void setMemtype(String memtype) {
 		this.memtype = memtype;
+	}
+	@Column(name="teacherType",length=510)
+	public String getTeachertype() {
+		return teachertype;
+	}
+	public void setTeachertype(String teachertype) {
+		this.teachertype = teachertype;
+	}
+	@Column(name="openCourse",length=510)
+	public String getOpencourse() {
+		return opencourse;
+	}
+	public void setOpencourse(String opencourse) {
+		this.opencourse = opencourse;
+	}
+	@Column(name="classGrade",length=510)
+	public String getClassgrade() {
+		return classgrade;
+	}
+	public void setClassgrade(String classgrade) {
+		this.classgrade = classgrade;
+	}
+	@Column(name="scienceGrade",length=4000)
+	public String getSciencegrade() {
+		return sciencegrade;
+	}
+	public void setSciencegrade(String sciencegrade) {
+		this.sciencegrade = sciencegrade;
+	}
+	@Column(name="yuanshiType",length=22)
+	public long getYuanshitype() {
+		return yuanshitype;
+	}
+	public void setYuanshitype(long yuanshitype) {
+		this.yuanshitype = yuanshitype;
+	}
+	@Column(name="perPlain",length=510)
+	public String getPerplain() {
+		return perplain;
+	}
+	public void setPerplain(String perplain) {
+		this.perplain = perplain;
+	}
+	@Column(name="memLink",length=4000)
+	public String getMemlink() {
+		return memlink;
+	}
+	public void setMemlink(String memlink) {
+		this.memlink = memlink;
 	}
 }

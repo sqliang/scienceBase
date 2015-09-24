@@ -3,8 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head lang="zh-CN">
@@ -12,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>研究队伍</title>
+    <title>${resdirection.dirtitle}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
@@ -31,35 +30,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="header.jsp"></jsp:include>
 <!-- header end -->
 <div class="main">
-	<!-- banner -->
-	<jsp:include page="banner.jsp"></jsp:include>
+<!-- banner -->
+<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
 		<div class="content-article">
 			<div class="article-title">
-          		<h3>${target}列表</h3>
+          		<h3>${resdirection.dirtitle}</h3>
        		</div>
 			<div class="content-con">
-				<div class="news-list">
-                    <div class="leader-list">
-                    	<c:forEach var="memberinfo" items="${memberinfos}">
-								<span>
-									<a href="${memberinfo.memid}">
-										<font>
-											${memberinfo.memname}
-										</font>
-									</a>
-								</span>
-                    	</c:forEach>
-                    </div>
-          		</div>				
+				<div style="height:10px;"></div>
+				${resdirection.content}
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
 				
 	

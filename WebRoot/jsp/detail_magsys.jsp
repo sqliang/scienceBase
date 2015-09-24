@@ -31,45 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- header end -->
 <div class="main">
 <!-- banner -->
-	<div class="banner clearfix">
-		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <!-- <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="/scienceBase/img/demo3.jpg" alt="/scienceBase.">
-      <div class="carousel-caption">
-        <h1>tilte 1</h1>
-      </div>
-    </div>
-    <div class="item">
-      <img src="/scienceBase/img/demo4.jpg" alt="/scienceBase.">
-      <div class="carousel-caption">
-        <h1>tilte 4</h1>
-      </div>
-    </div>
-  </div>
-
-  <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!-- Controls end -->
-</div>
-	</div>
+<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
@@ -78,11 +41,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           		<h3>${magsysinfo.magsystitle}</h3>
        		</div>
 			<div class="content-con">
+				<div style="height:10px;"></div>
 				${magsysinfo.magsyscontent}
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
 				
 	

@@ -36,14 +36,8 @@ public class MemberinfoManagerImpl extends BaseManagerImpl<Memberinfo> implement
 		return findbyHql(sqlkey);
 	}
 	@Override
-	public List<Memberinfo> queryMemInfosByChengHao(String memChengHao) {
-		System.out.println(memChengHao);
-		List<Memberinfo> memberinfos = findbyHql("from Memberinfo where memchenghao like ?","%"+memChengHao+"%");
-		return memberinfos;
-	}
-	@Override
-	public List<Memberinfo> queryMemInfosByMemType(String memType) {
-		List<Memberinfo> memberinfos = findByProperty("memType", memType);
+	public List<Memberinfo> queryMemInfosByChengHao(String perPlain) {
+		List<Memberinfo> memberinfos = findbyHql("from Memberinfo where perPlain like ?","%"+perPlain+"%");
 		return memberinfos;
 	}
 	@Override
@@ -52,8 +46,47 @@ public class MemberinfoManagerImpl extends BaseManagerImpl<Memberinfo> implement
 		return memberinfos;
 	}
 	@Override
-	public List<Memberinfo> queryMemInfosByMemDegree(String memDegree) {
-		List<Memberinfo> memberinfos = findByProperty("memDegree", memDegree);
+	public List<Memberinfo> queryMemInfosByMemysType(long yuanshiType) {
+		List<Memberinfo> memberinfos = findByProperty("yuanshiType", yuanshiType);
+		return memberinfos;
+	}
+	@Override
+	public List<Memberinfo> queryMemInfosByTeacherType(String teacherType) {
+		List<Memberinfo> memberinfos = findByProperty("teacherType", teacherType);
+		return memberinfos;
+	}
+	@Override
+	public List<Memberinfo> queryMemInfosByMemJobTitle(String memJobTitle,String teacherType) {
+		List<Memberinfo> memberinfos = memberinfoDao.findByHql("from Memberinfo where memJobTitle=? and teacherType<>?", memJobTitle,teacherType);
+		return memberinfos;
+	}
+	@Override
+	public List<Memberinfo> queryMemInfosByMemJobTitle(String memJobTitle) {
+		List<Memberinfo> memberinfos = findByProperty("memJobTitle", memJobTitle);
+		return memberinfos;
+	}
+	@Override
+	public List<Memberinfo> queryMemInfosByMemTypeOfBoDao(String memType,
+			String teacherType) {
+		List<Memberinfo> memberinfos = memberinfoDao.findByHql("from Memberinfo where memType=? and teacherType=?", memType,teacherType);
+		return memberinfos;
+	}
+	@Override
+	public List<Memberinfo> queryMemInfosByMemTypeProfess(String memType,
+			String memJobTitle, String teacherType) {
+		List<Memberinfo> memberinfos = memberinfoDao.findByHql("from Memberinfo where memType=? and memJobTitle=? and teacherType<>?", memType,memJobTitle,teacherType);
+		return memberinfos;
+	}
+	@Override
+	public List<Memberinfo> queryMemInfosByMemTypeJobTitle(String memType,
+			String memJobTitle) {
+		List<Memberinfo> memberinfos = memberinfoDao.findByHql("from Memberinfo where memType=? and memJobTitle=?", memType,memJobTitle);
+		return memberinfos;
+	}
+	@Override
+	public List<Memberinfo> queryMemByMemTypeNotIn(String memType,
+			String profess, String fuProfess, String jiangshi) {
+		List<Memberinfo> memberinfos = memberinfoDao.findByHql("from Memberinfo where memType=? and memJobTitle not in (?,?,?)", memType,profess,fuProfess,jiangshi);
 		return memberinfos;
 	}
 }

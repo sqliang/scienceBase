@@ -14,11 +14,14 @@ import com.science.domain.Paptentinfo;
 import com.science.domain.Presentachiveinfo;
 import com.science.domain.Projectinfo;
 import com.science.serviceManager.BookinfoManager;
+import com.science.serviceManager.JManager;
 import com.science.serviceManager.LabgradeinfoManager;
 import com.science.serviceManager.PaperinfoManager;
 import com.science.serviceManager.PaptentinfoManager;
 import com.science.serviceManager.PresentachiveinfoManager;
 import com.science.serviceManager.ProjectinfoManager;
+import com.science.serviceManager.SubmenuManager;
+import com.science.util.string.StringUtil;
 
 public class ScienceResManagerAction extends BaseAction {
 	
@@ -35,6 +38,10 @@ public class ScienceResManagerAction extends BaseAction {
 	private LabgradeinfoManager labgradeinfoManager;
 	@Autowired
 	private PresentachiveinfoManager presentachiveinfoManager;
+	@Autowired
+	private SubmenuManager submenuManager;
+	@Autowired
+	private JManager jManager;
 	
 	private List<Projectinfo> projectinfos;
 	private List<Paperinfo> paperinfos;
@@ -42,13 +49,18 @@ public class ScienceResManagerAction extends BaseAction {
 	private List<Paptentinfo> paptentinfos;
 	private List<Labgradeinfo> labgradeinfos;
 	private List<Presentachiveinfo> presentachiveinfos;
-	private String target;
+	private String subMenuName;
+	private long mainMenuId;
 	private Projectinfo projectinfo;
 	private Paperinfo paperinfo;
 	private Bookinfo bookinfo;
 	private Paptentinfo paptentinfo;
 	private Labgradeinfo labgradeinfo;
 	private Presentachiveinfo presentachiveinfo;
+	private String pageNow;
+	private long limit;
+	private long start;
+	private long totalPages;
 	
 	
 	public List<Projectinfo> getProjectinfos() {
@@ -99,14 +111,6 @@ public class ScienceResManagerAction extends BaseAction {
 		this.presentachiveinfos = presentachiveinfos;
 	}
 	
-	public String getTarget() {
-		return target;
-	}
-
-	public void setTarget(String target) {
-		this.target = target;
-	}
-	
 	public Projectinfo getProjectinfo() {
 		return projectinfo;
 	}
@@ -155,16 +159,71 @@ public class ScienceResManagerAction extends BaseAction {
 		this.presentachiveinfo = presentachiveinfo;
 	}
 
+	public String getSubMenuName() {
+		return subMenuName;
+	}
+
+	public void setSubMenuName(String subMenuName) {
+		this.subMenuName = subMenuName;
+	}
+
+	public long getMainMenuId() {
+		return mainMenuId;
+	}
+
+	public void setMainMenuId(long mainMenuId) {
+		this.mainMenuId = mainMenuId;
+	}
+	
+	public String getPageNow() {
+		return pageNow;
+	}
+
+	public void setPageNow(String pageNow) {
+		this.pageNow = pageNow;
+	}
+
+	public long getLimit() {
+		return limit;
+	}
+
+	public void setLimit(long limit) {
+		this.limit = limit;
+	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public void setStart(long start) {
+		this.start = start;
+	}
+
+	public long getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(long totalPages) {
+		this.totalPages = totalPages;
+	}
+
 	@Action(value = "/queryProjectinfos", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_project.jsp", 
-					params = {"projectinfos","${projectinfos}","target","${target}"}),
+					params = {"projectinfos","${projectinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}","totalPages","${totalPages}",
+							  "pageNow","${pageNow}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryProjectinfos(){
 		try {
-			target = "科研项目";
-			projectinfos = projectinfoManager.queryProjectOrderBytime();
+			long totalCount = Long.parseLong(jManager.simpleSQL("select count(*) from projectinfo"));
+			limit = 10;
+			start = (Integer.parseInt(pageNow) - 1)*limit;
+			totalPages = (totalCount + limit -1)/limit;
+			projectinfos = projectinfoManager.queryProjectByFenye(start, limit);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -174,13 +233,20 @@ public class ScienceResManagerAction extends BaseAction {
 	@Action(value = "/queryPaperinfos", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_paper.jsp", 
-					params = {"paperinfos","${paperinfos}","target","${target}"}),
+					params = {"paperinfos","${paperinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}","totalPages","${totalPages}",
+							  "pageNow","${pageNow}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryPaperinfos(){
 		try {
-			target="学术论文";
-			paperinfos = paperinfoManager.queryPaperOrderByTime();
+			long totalCount = Long.parseLong(jManager.simpleSQL("select count(*) from paperinfo"));
+			limit = 10;
+			start = (Integer.parseInt(pageNow) - 1)*limit;
+			totalPages = (totalCount + limit -1)/limit;
+			paperinfos = paperinfoManager.queryPaperByFenye(start, limit);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -190,13 +256,15 @@ public class ScienceResManagerAction extends BaseAction {
 	@Action(value = "/queryBookinfos", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_book.jsp", 
-					params = {"bookinfos","${bookinfos}","target","${target}"}),
+					params = {"bookinfos","${bookinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryBookinfos(){
 		try {
-			target="学术专著";
 			bookinfos = bookinfoManager.queryBookOrderByTime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -206,13 +274,15 @@ public class ScienceResManagerAction extends BaseAction {
 	@Action(value = "/queryPaptentinfos", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_paptent.jsp", 
-					params = {"paptentinfos","${paptentinfos}","target","${target}"}),
+					params = {"paptentinfos","${paptentinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryPaptentinfos(){
 		try {
-			target="发明专利";
 			paptentinfos = paptentinfoManager.queryPaptentOrderByTime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -222,13 +292,15 @@ public class ScienceResManagerAction extends BaseAction {
 	@Action(value = "/queryLabgradeinfos", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_labgrade.jsp", 
-					params = {"labgradeinfos","${labgradeinfos}","target","${target}"}),
+					params = {"labgradeinfos","${labgradeinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryLabgradeinfos(){
 		try {
-			target="科研奖励";
 			labgradeinfos = labgradeinfoManager.queryLabGradeOrderByTime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -238,13 +310,15 @@ public class ScienceResManagerAction extends BaseAction {
 	@Action(value = "/queryPresentachiveinfos", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_presentachive.jsp", 
-					params = {"presentachiveinfos","${presentachiveinfos}","target","${target}"}),
+					params = {"presentachiveinfos","${presentachiveinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryPresentachiveinfos(){
 		try {
-			target="代表性成果";
 			presentachiveinfos = presentachiveinfoManager.queryPresentachibeOrderByTime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

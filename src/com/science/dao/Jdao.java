@@ -358,7 +358,6 @@ public class Jdao {
 		PreparedStatement statement = null;
 		ResultSet rs = null; 
 		long autoIncKeyFromFunc = -1; 
-		System.out.println("success====dffffdff====++++====dfddfdffd=========================<<<<<<<<");
 		try {
 			connection = this.getConnection();
 			statement =  (PreparedStatement) connection.prepareStatement(sql);    

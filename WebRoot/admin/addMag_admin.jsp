@@ -109,20 +109,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="mamSys" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addMagsysinfo" method="POST">
                     				<div class="form-group">
     									<label for="scienceTitle">管理制度标题：</label>
-    									<input type="text" class="form-control" id="scienceTitle" placeholder="输入科普教育标题">
+    									<input type="text" name="magsysinfo.magsystitle" class="form-control" id="scienceTitle" placeholder="输入管理制度标题">
   									</div>
   									<div class="form-group">
     									<label for="subTime">时间：</label>
-    									<input type="date" class="form-control" id="subTime">
+    									<input type="date" name="magsysinfo.time" class="form-control" id="subTime">
   									</div>
   									<div class="form-group">
 						                <label for="content">内容：</label>
 						                <!-- <textarea name="content" id="content"></textarea> -->
 						                <!-- 加载编辑器的容器 -->
-									    <script id="content" name="content" type="text/plain">请输入内容</script>
+									    <script id="content" name="magsysinfo.magsyscontent" type="text/plain">请输入内容</script>
 						            </div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>

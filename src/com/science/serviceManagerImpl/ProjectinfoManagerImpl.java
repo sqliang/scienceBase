@@ -38,4 +38,9 @@ public class ProjectinfoManagerImpl extends BaseManagerImpl<Projectinfo> impleme
 		List<Projectinfo> projectinfos = findbyHql("from Projectinfo order by time Desc");
 		return projectinfos;
 	}
+	@Override
+	public List<Projectinfo> queryProjectByFenye(long start,long limit) {
+		List<Projectinfo> projectinfos = projectinfoDao.findByHqlP("from Projectinfo order by time Desc", (int)start, (int)limit);
+		return projectinfos;
+	}
 }

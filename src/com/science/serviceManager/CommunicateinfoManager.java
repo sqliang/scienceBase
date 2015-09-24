@@ -14,7 +14,7 @@ public interface CommunicateinfoManager extends BaseManager<Communicateinfo> {
 
 	public List<Communicateinfo> find(String sqlkey);
 	
-	public List<Communicateinfo> queryCommuicateByType(long communicateType);
+	public List<Communicateinfo> queryCommuicateByType(long communicateType,long start, long limit);
 	
 	public List<Communicateinfo> queryCommuicateByTime();
 }

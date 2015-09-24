@@ -11,6 +11,8 @@ import com.science.domain.Resourceinfo;
 import com.science.domain.Scienceedu;
 import com.science.serviceManager.ResourceinfoManager;
 import com.science.serviceManager.ScienceeduManager;
+import com.science.serviceManager.SubmenuManager;
+import com.science.util.string.StringUtil;
 
 public class ResourceManagerAction extends BaseAction {
 
@@ -19,11 +21,14 @@ public class ResourceManagerAction extends BaseAction {
 	private ResourceinfoManager resourceinfoManager;
 	@Autowired
 	private ScienceeduManager scienceeduManager;
+	@Autowired
+	private SubmenuManager submenuManager;
 	
 	private List<Resourceinfo> resourceinfos;
 	private List<Scienceedu> scienceedus;
 	private long resourceType;
-	private String target;
+	private String subMenuName;
+	private long mainMenuId;
 	
 	private Resourceinfo resourceinfo;
 	private Scienceedu scienceedu;
@@ -46,12 +51,6 @@ public class ResourceManagerAction extends BaseAction {
 	public void setResourceType(long resourceType) {
 		this.resourceType = resourceType;
 	}
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
-	}
 	public Resourceinfo getResourceinfo() {
 		return resourceinfo;
 	}
@@ -64,21 +63,31 @@ public class ResourceManagerAction extends BaseAction {
 	public void setScienceedu(Scienceedu scienceedu) {
 		this.scienceedu = scienceedu;
 	}
+	
+	public String getSubMenuName() {
+		return subMenuName;
+	}
+	public void setSubMenuName(String subMenuName) {
+		this.subMenuName = subMenuName;
+	}
+	public long getMainMenuId() {
+		return mainMenuId;
+	}
+	public void setMainMenuId(long mainMenuId) {
+		this.mainMenuId = mainMenuId;
+	}
 	@Action(value = "/queryResourceByType", 
 			results = { 
-			@Result(name = "success", type = "dispatcher", location = "/admin/queryResource_admin.jsp", 
-					params = {"resourceinfos","${resourceinfos}","target","${target}"}),
+			@Result(name = "success", type = "dispatcher", location = "/jsp/list_resource.jsp", 
+					params = {"resourceinfos","${resourceinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryResourceByType(){
 		try {
 			resourceinfos = resourceinfoManager.queryResourceByType(resourceType);
-			long temp = resourceinfos.get(0).getResourcetype();
-			if(temp == 1){
-				target="开放硬件";
-			}else{
-				target = "开放软件";
-			}
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -88,13 +97,15 @@ public class ResourceManagerAction extends BaseAction {
 	@Action(value = "/queryScienceEdu", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_scienceedu.jsp", 
-					params = {"scienceedus","${scienceedus}","target","${target}"}),
+					params = {"scienceedus","${scienceedus}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryScienceEdu(){
 		try {
-			target = "科普教育";
 			scienceedus = scienceeduManager.queryScienceeduByTime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

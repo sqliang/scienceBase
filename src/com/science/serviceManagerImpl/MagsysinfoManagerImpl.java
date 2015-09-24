@@ -43,5 +43,11 @@ public class MagsysinfoManagerImpl extends BaseManagerImpl<Magsysinfo> implement
 		Magsysinfo magsysinfo = findByPropertyUnique("magsysid",magsysid);
 		return magsysinfo;
 	}
+	@Override
+	public List<Magsysinfo> querMagsysFenyeByTime(long start, long limit) {
+		List<Magsysinfo> magsysinfos =  magsysinfoDao.findByHqlP("from Magsysinfo order by time Desc", (int)start, (int)limit);
+		return magsysinfos;
+	}
+	
 	
 }

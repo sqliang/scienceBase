@@ -42,4 +42,9 @@ public class NewsinfoManagerImpl extends BaseManagerImpl<Newsinfo> implements Ne
 		List<Newsinfo>  newsinfos = findbyHql("from Newsinfo where newsType=? order by time Desc", newsType);
 		return newsinfos;
 	}
+	@Override
+	public Newsinfo queryNewsinfoById(long newsId) {
+		Newsinfo newsinfo = findbyHqlUnique("from Newsinfo where newsId=?", newsId);
+		return newsinfo;
+	}
 }

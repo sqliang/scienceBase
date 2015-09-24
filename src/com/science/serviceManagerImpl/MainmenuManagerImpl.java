@@ -41,4 +41,10 @@ public class MainmenuManagerImpl extends BaseManagerImpl<Mainmenu> implements Ma
 		}
 		return mainmenus;
 	}
+	@Override
+	public Mainmenu queryByMainId(long mainMenuId) {
+		Mainmenu mainmenu = findbyHqlUnique("from Mainmenu where mainmenuid=?", mainMenuId);
+		mainmenu.loadSubmenumainmenuids("");
+		return mainmenu;
+	}
 }

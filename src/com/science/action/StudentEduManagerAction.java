@@ -12,7 +12,10 @@ import com.science.domain.Classinfo;
 import com.science.domain.Studentinfo;
 import com.science.serviceManager.ClassgradeinfoManager;
 import com.science.serviceManager.ClassinfoManager;
+import com.science.serviceManager.JManager;
 import com.science.serviceManager.StudentinfoManager;
+import com.science.serviceManager.SubmenuManager;
+import com.science.util.string.StringUtil;
 
 public class StudentEduManagerAction extends BaseAction {
 
@@ -23,15 +26,25 @@ public class StudentEduManagerAction extends BaseAction {
 	private ClassinfoManager classinfoManager;
 	@Autowired
 	private ClassgradeinfoManager classgradeinfoManager;
+	@Autowired
+	private SubmenuManager submenuManager;
+	@Autowired
+	private JManager jManager;
 	
 	private String stuDegree;
 	private List<Studentinfo> studentinfos;
 	private List<Classinfo> classinfos;
 	private List<Classgradeinfo> classgradeinfos;
-	private String target;
+	private String subMenuName;
+	private long mainMenuId;
 	private Studentinfo studentinfo;
 	private Classinfo classinfo;
 	private Classgradeinfo classgradeinfo;
+	
+	private String pageNow;
+	private long limit;
+	private long start;
+	private long totalPages;
 	
 	public String getStuDegree() {
 		return stuDegree;
@@ -57,14 +70,6 @@ public class StudentEduManagerAction extends BaseAction {
 	public void setClassgradeinfos(List<Classgradeinfo> classgradeinfos) {
 		this.classgradeinfos = classgradeinfos;
 	}
-	
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
-	}
-	
 	public Studentinfo getStudentinfo() {
 		return studentinfo;
 	}
@@ -83,16 +88,55 @@ public class StudentEduManagerAction extends BaseAction {
 	public void setClassgradeinfo(Classgradeinfo classgradeinfo) {
 		this.classgradeinfo = classgradeinfo;
 	}
+	
+	public String getSubMenuName() {
+		return subMenuName;
+	}
+	public void setSubMenuName(String subMenuName) {
+		this.subMenuName = subMenuName;
+	}
+	public long getMainMenuId() {
+		return mainMenuId;
+	}
+	public void setMainMenuId(long mainMenuId) {
+		this.mainMenuId = mainMenuId;
+	}
+	public String getPageNow() {
+		return pageNow;
+	}
+	public void setPageNow(String pageNow) {
+		this.pageNow = pageNow;
+	}
+	public long getLimit() {
+		return limit;
+	}
+	public void setLimit(long limit) {
+		this.limit = limit;
+	}
+	public long getStart() {
+		return start;
+	}
+	public void setStart(long start) {
+		this.start = start;
+	}
+	public long getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(long totalPages) {
+		this.totalPages = totalPages;
+	}
 	@Action(value = "/queryClassGradeinfoByTime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_classgrade.jsp", 
-					params = {"classgradeinfos","${classgradeinfos}","target","${target}"}),
+					params = {"classgradeinfos","${classgradeinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryClassGradeinfoByTime(){
 		try {
-			target = "教学成果";
 			classgradeinfos = classgradeinfoManager.queryClassGradeinfoByTime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -102,14 +146,15 @@ public class StudentEduManagerAction extends BaseAction {
 	@Action(value = "/queryClassinfoByTime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_classinfo.jsp", 
-					params = {"classinfos","${classinfos}",
-							  "target","${target}"}),
+					params = {"classinfos","${classinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryClassinfoByTime(){
 		try {
-			target="主讲课程";
 			classinfos = classinfoManager.queryClassinfoByTime();
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -118,15 +163,26 @@ public class StudentEduManagerAction extends BaseAction {
 	
 	@Action(value = "/queryStudentsByDegree", 
 			results = { 
-			@Result(name = "success", type = "dispatcher", location = "/jsp/detail.jsp", 
-					params = {"studentinfos","${studentinfos}"}),
+			@Result(name = "success", type = "dispatcher", location = "/jsp/list_students.jsp", 
+					params = {"studentinfos","${studentinfos}","subMenuName","${subMenuName}",
+							  "mainMenuId","${mainMenuId}","totalPages","${totalPages}",
+							  "pageNow","${pageNow}","stuDegree","${stuDegree}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String queryStudentsByDegree(){
 		try {
-			studentinfos = studentinfoManager.queryStudentsByDegree(stuDegree);
+			stuDegree = StringUtil.convertCodeToUtf(stuDegree);
+			long totalCount = Long.parseLong(jManager.simpleSQL("select count(*) from studentinfo where stuDegree=?",stuDegree));
+			limit = 20;
+			start = (Integer.parseInt(pageNow) - 1)*limit;
+			totalPages = (totalCount + limit -1)/limit;
+			studentinfos = studentinfoManager.queryStudentByFenye(stuDegree,start, limit);
+			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
+			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
+			
 			return ERROR;
 		}
 	}

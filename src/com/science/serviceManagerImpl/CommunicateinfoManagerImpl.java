@@ -43,10 +43,9 @@ public class CommunicateinfoManagerImpl extends BaseManagerImpl<Communicateinfo>
 	public List<Communicateinfo> find(String sqlkey) {
 		return findbyHql(sqlkey);
 	}
-
 	@Override
-	public List<Communicateinfo> queryCommuicateByType(long communicateType) {
-		List<Communicateinfo> communicateinfos = findbyHql("from Communicateinfo where communicateType=? order by time Desc", communicateType);
+	public List<Communicateinfo> queryCommuicateByType(long communicateType,long start, long limit) {
+		List<Communicateinfo> communicateinfos = communicateinfoDao.findByHqlP("from Communicateinfo where communicateType=? order by time", (int)start, (int)limit, communicateType);
 		return communicateinfos;
 	}
 
@@ -55,6 +54,7 @@ public class CommunicateinfoManagerImpl extends BaseManagerImpl<Communicateinfo>
 		List<Communicateinfo> communicateinfos  = findbyHql("from Communicateinfo order by time Desc");
 		return communicateinfos;
 	}
+
 	
 	
 }

@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>学术论文</title>
+    <title>${subMenuName}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
@@ -34,38 +34,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- banner -->
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
 		<div class="content-article">
 			<div class="article-title">
-          		<h3>${target}列表</h3>
+          		<h3>${subMenuName}列表</h3>
        		</div>
 			<div class="content-con">
-				<ul class="clearfix">
-					<c:forEach var="bookinfo" items="${bookinfos}">
-						<li class="class-list book-list">
-			                 <div class="leader-list">
-			                 	<span class="label-title">专著名称：</span>
-			                     <span>《${bookinfo.bookname}》</span>
-			                  </div>
-			                 <div class="leader-list">
-			                 	<span class="label-title">专著作者：</span>
-			                    <span>${bookinfo.bookauthor}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">专著简介：</span>
-			                    <span>${bookinfo.bookintro}</span>
-			                  </div>
-		          		</li>				
-                    </c:forEach>
-				</ul>
-                    
+				<div style="height:20px;"></div>
+				<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="font-weight:bold;text-align:center;">#</th>
+									<th style="font-weight:bold;text-align:center;">专著名称</th>
+									<th style="font-weight:bold;text-align:center;">专著作者</th>
+									<th style="font-weight:bold;text-align:center;">出版社信息或简介</th>
+								</tr>
+							</thead>
+							<tbody>
+                    	<c:forEach varStatus="status" var="bookinfo" items="${bookinfos}">
+							 <tr>
+							 	<td style="text-align:center;">${status.index + 1}</td>
+								<td style="text-align:center;">${bookinfo.bookname}</td>
+								<td style="text-align:center;">${bookinfo.bookauthor}</td>
+								<td style="text-align:center;">${bookinfo.bookintro}</td>
+							 </tr>
+                    	</c:forEach>
+							</tbody>
+						</table>
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
 				
 	

@@ -38,6 +38,11 @@ public class ResdirectionManagerImpl extends BaseManagerImpl<Resdirection> imple
 		List<Resdirection> resdirections = findbyHql("from Resdirection order by time Desc");
 		return resdirections;
 	}
+	@Override
+	public Resdirection queryResdirById(long dirId) {
+		Resdirection resdirection = findbyHqlUnique("from Resdirection where dirId=?", dirId);
+		return resdirection;
+	}
 	
 	
 }

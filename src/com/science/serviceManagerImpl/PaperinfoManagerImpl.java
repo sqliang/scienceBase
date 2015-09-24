@@ -38,4 +38,9 @@ public class PaperinfoManagerImpl extends BaseManagerImpl<Paperinfo> implements 
 		List<Paperinfo> paperinfos = findbyHql("from Paperinfo order by time Desc");
 		return paperinfos;
 	}
+	@Override
+	public List<Paperinfo> queryPaperByFenye(long start, long limit) {
+		List<Paperinfo> paperinfos = paperinfoDao.findByHqlP("from Paperinfo order by time Desc", (int)start, (int)limit);
+		return paperinfos;
+	}
 }

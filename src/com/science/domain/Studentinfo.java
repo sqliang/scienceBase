@@ -28,7 +28,7 @@ public class Studentinfo implements Serializable {
 
 	private long stuid;
 	private String stuname;
-	private long stusex;
+	private long stucode;
 	private String studegree;
 	private String stuteacher;
 	private String stumaster;
@@ -63,15 +63,6 @@ public class Studentinfo implements Serializable {
 	@Column(name="stuName",length=40)
 	public  String getStuname(){
 		return this.stuname;
-
-	}
-	public  void setStusex(long stusex){
-		this.stusex=stusex;
-
-	}
-	@Column(name="stuSex",length=22)
-	public  long getStusex(){
-		return this.stusex;
 
 	}
 	public  void setStudegree(String studegree){
@@ -128,4 +119,12 @@ public class Studentinfo implements Serializable {
 		return this.resinfocontent;
 
 	}
+	@Column(name="stuCode",length=22)
+	public long getStucode() {
+		return stucode;
+	}
+	public void setStucode(long stucode) {
+		this.stucode = stucode;
+	}
+	
 }

@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>科研项目</title>
+    <title>${subMenuName}</title>
     <link rel="stylesheet" href="/scienceBase/css/common/bootstrap.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/reset.min.css" />
     <link rel="stylesheet" href="/scienceBase/css/common/header.css" />
@@ -34,62 +34,80 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- banner -->
 	<jsp:include page="banner.jsp"></jsp:include>
 	<!-- banner end -->
-	<div class="main-info-line"></div>
 	<!-- maincontent -->
 	<div class="main-content clearfix">
 		<!-- main right 放置文章 -->
 		<div class="content-article">
 			<div class="article-title">
-          		<h3>${target}列表</h3>
+          		<h3>${subMenuName}列表</h3>
        		</div>
 			<div class="content-con">
-				<ul class="clearfix">
-					<c:forEach var="projectinfo" items="${projectinfos}">
-						<li class="class-list proj-list">
-			                 <div class="leader-list">
-			                 	<span class="label-title">项目编号：</span>
-			                     <span>${projectinfo.projcode}</span>
-			                  </div>
-			                 <div class="leader-list">
-			                 	<span class="label-title">项目名称：</span>
-			                    <span>${projectinfo.projname}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                   	<span class="label-title">项目类型：</span>
-			                    <span>${projectinfo.projtype}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">批准部门：</span>
-			                    <span>${projectinfo.projagreeorg}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">项目负责人：</span>
-			                    <span>${projectinfo.projmasterperson}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">项目开始时间：</span>
-			                    <span>${projectinfo.projstarttime}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">项目结束时间：</span>
-			                    <span>${projectinfo.projendtime}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">项目经费：</span>
-			                    <span>${projectinfo.projfee}</span>
-			                  </div>
-			                  <div class="leader-list">
-			                    <span class="label-title">项目简介：</span>
-			                    <span>${projectinfo.projcontent}</span>
-			                  </div>
-		          		</li>				
-                    </c:forEach>
-				</ul>
-                    
+				<div style="height:20px;"></div>
+				<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="font-weight:bold;text-align:center;">#</th>
+									<th style="font-weight:bold;text-align:center;">项目编号</th>
+									<th style="font-weight:bold;text-align:center;">项目名称</th>
+								    <th style="font-weight:bold;text-align:center;">项目类型</th>
+								    <th style="font-weight:bold;text-align:center;">批准部门</th>
+								    <th style="font-weight:bold;text-align:center;">项目负责人</th>
+								    <th style="font-weight:bold;text-align:center;">项目开始时间</th>
+								    <th style="font-weight:bold;text-align:center;">项目结束时间</th>
+								    <th style="font-weight:bold;text-align:center;">项目经费</th>
+								    <th style="font-weight:bold;text-align:center;">项目简介</th>
+								</tr>
+							</thead>
+							<tbody>
+                    	<c:forEach varStatus="status" var="projectinfo" items="${projectinfos}">
+							 <tr>
+							 	<td style="text-align:center;">${status.index + 1}</td>
+							 	<td style="text-align:center;">${projectinfo.projcode}</td>
+								<td style="text-align:center;">${projectinfo.projname}</td>
+								<td style="text-align:center;">${projectinfo.projtype}</td>
+								<td style="text-align:center;">${projectinfo.projagreeorg}</td>
+								<td style="text-align:center;">${projectinfo.projmasterperson}</td>
+								<td style="text-align:center;">${projectinfo.projstarttime}}</td>
+								<td style="text-align:center;">${projectinfo.projendtime}</td>
+								<td style="text-align:center;">${projectinfo.projfee}</td>
+								<td style="text-align:center;">${projectinfo.projcontent}</td>
+							 </tr>
+                    	</c:forEach>
+							</tbody>
+				</table>
+                  <!-- 分页 -->
+          			<div class="page-fenye">
+          				<c:choose>
+	          				<c:when test="${pageNow > 1}">
+							<a href="queryProjectinfos?pageNow=${pageNow - 1}&subMenuName=${subMenuName}&stuDegree=${stuDegree}" class="page-prev">上一页</a>
+	          				</c:when>
+          				</c:choose>
+						<c:forEach var="index" begin="1" end="${totalPages}" step="1">
+							<c:choose>
+								<c:when test="${pageNow == index}">
+									<span class="page-cur">${pageNow}</span>
+								</c:when>
+								<c:otherwise>
+									<a href="queryProjectinfos?pageNow=${index}&subMenuName=${subMenuName}&stuDegree=${stuDegree}" pageno="${index}">${index}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<!-- <a href="#" pageno="1">3</a>
+						<a href="#" pageno="1">4</a> -->
+						<c:choose>
+							<c:when test="${pageNow < totalPages}">
+								<a href="queryProjectinfos?pageNow=${pageNow + 1}&subMenuName=${subMenuName}&stuDegree=${stuDegree}" pageno="${pageNow + 1}" class="page-next">下一页</a> 
+							</c:when>
+						</c:choose>
+						<span class="page-op">共${totalPages}页</span>
+					</div>
+					<!-- end -->					  
 			</div>
 		</div><!-- main right end -->
 			<!-- main left nav -->
-			<jsp:include page="left_nav.jsp"></jsp:include>
+			<jsp:include page="left_nav.jsp">
+				<jsp:param value="${mainMenuId}" name="mainMenuId"/>
+			</jsp:include>
 		</div>
 				
 	

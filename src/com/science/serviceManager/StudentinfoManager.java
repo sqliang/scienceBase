@@ -16,5 +16,7 @@ public interface StudentinfoManager extends BaseManager<Studentinfo> {
 	public List<Studentinfo> find(String sqlkey);
 	
 	public List<Studentinfo> queryStudentsByDegree(String stuDegree);
+	
+	public List<Studentinfo> queryStudentByFenye(String stuDegree,long start, long limit);
 
 }

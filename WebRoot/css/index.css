@@ -1,3 +1,6 @@
+.container {
+  width: 1150px;
+}
 .news-box,
 .extra-news-info {
 	width: 1120px;
@@ -22,7 +25,7 @@
 	height: 31px;
   	color: #193F51;
   	margin-bottom: 8px;
-  	border-bottom: 1px solid #193F51;
+  	border-bottom: 1px solid #DDD;
   	padding-bottom: 30px;
 }
 .art-title span {
@@ -47,8 +50,11 @@
   	margin: 5px 0;
 }
 .info-list li span {
-	display:inline-block;
+	display: inline-block;
 	font-size: 15px;
+	width: 400px;
+	height: 25px;
+	overflow: hidden;
 }
 .info-list li a:focus,
 .info-list li a:hover{
@@ -57,6 +63,9 @@
 }
 .info-list li .left-con {
 	float: left;
+}
+.info-list li .list-three{
+	  width: 260px;
 }
 .info-list li .news-time{
 	float: right;
@@ -78,3 +87,68 @@
 	width: 355px;
 	float: right;
 }
+.focus {
+	width: 560px;
+  	height: 246px;
+  	overflow: hidden;
+  	position: relative;
+}
+.focus ul {
+	height:246px; 
+	position:absolute;
+}
+.focus ul li {
+	float:left; 
+	width:560px; 
+	height:246px; 
+	overflow:hidden; 
+	position:relative; 
+	background:#000;
+}
+.focus ul li div {
+	position:absolute;
+	width:490px;
+	height:24px; 
+	overflow:hidden;
+	left:10px;
+	bottom:0px;
+	color:#fff;
+	font-size:16px;
+	line-height:24px;
+}
+.focus ul li a img{
+	width:560px;
+	height:246px;
+}
+.focus .btnBg {
+	position:absolute; 
+	width:560px; 
+	height:20px; 
+	left:0; 
+	bottom:0; 
+	background:#000; 
+	display:none;
+}
+.focus .btn {
+	position:absolute; 
+	width:540px; 
+	height:23px; 
+	padding:0px 10px 0px 10px; 
+	right:0; 
+	bottom:6px; 
+	text-align:right;
+}
+.focus .btn span {
+	display:inline-block; 
+	_display:inline; 
+	_zoom:1; 
+	width:25px; 
+	height:24px; 
+	line-height:24px; 
+	text-align:center; 
+	_font-size:0; 
+	margin-left:5px; 
+	cursor:pointer; 
+	background:#fff;
+	}
+.focus .btn span.on {background:#fff;}

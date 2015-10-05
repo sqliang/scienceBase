@@ -37,5 +37,10 @@ public class IntroduceinfoManagerImpl extends BaseManagerImpl<Introduceinfo> imp
 		List<Introduceinfo> introduceinfos  = findbyHql("from Introduceinfo where artType=? order by time Desc limit 1", artType);
 		Introduceinfo introduceinfo = introduceinfos.get(0);
 		return introduceinfo;
+	}
+	@Override
+	public Introduceinfo queryIntrInfoById(long artid) {
+		Introduceinfo introduceinfo = introduceinfoDao.findbyHqlUnique("from Introduceinfo where artId=?", artid);
+		return introduceinfo;
 	};
 }

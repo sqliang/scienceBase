@@ -4,7 +4,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,13 +13,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/scienceBase/admin/lib/font-awesome/css/font-awesome.css">
-
-   
-    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/theme.css">
-    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/premium.css">
-
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
 </head>
 <body class=" theme-blue">
 
@@ -74,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<p class="stat"><span class="label label-danger">15</span> Overdue</p>
 			</div> -->
 
-            <h1 class="page-title">简介文章管理-信息查看</h1>
+            <h1 class="page-title">信息发布</h1>
             <!-- <ul class="breadcrumb">
             	<li><a href="">Home</a> </li>
             	<li class="active">首页管理</li>
@@ -82,60 +78,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <!-- 右侧内容header end -->
         <div class="main-content">
-		<!-- 第一个panel -->
     		<div class="panel panel-default">
-        			<a href="#article-box" class="panel-heading" data-toggle="collapse">
-        				简介文章查看
-        			</a>
-        			<div id="article-box" class="panel-collapse panel-body collapse in">
+        			<div class="panel-collapse panel-body collapse in">
                     	<div class="row">
 	                        <div class="col-md-12">
-						        <table class="table">
-									  <thead>
-									    <tr>
-									      <th>#</th>
-									      <th>简介文章标题</th>
-									      <th>文章分类</th>
-									      <th>发布时间</th>
-									      <th style="width: 3.5em;"></th>
-									    </tr>
-									  </thead>
-									  <tbody>
-									  <c:forEach varStatus="status" var="introduceinfo" items="${introduceinfos}">
-									    <tr>
-									      <td>${status.index + 1}</td>
-									      <td><a>${introduceinfo.arttitle}</a></td>
-									      <c:choose>
-									      <c:when test="${introduceinfo.arttype == 1}">
-									      <td>实验室简介</td>
-									      </c:when>
-									      <c:when test="${introduceinfo.arttype == 2}">
-									      <td>队伍概况</td>
-									      </c:when>
-									      <c:when test="${introduceinfo.arttype == 3}">
-									      <td>人才培养概况</td>
-									      </c:when>
-									      <c:when test="${introduceinfo.arttype == 4}">
-									      <td>科学研究概况</td>
-									      </c:when>
-									      </c:choose>
-									      <td>${introduceinfo.time}</td>
-									       <td>
-									          <a href="updateIntrInfoById?artid=${introduceinfo.artid}"><i class="fa fa-pencil"></i></a>
-									          <a href="delIntrInfoById?artid=${introduceinfo.artid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-									      </td>
-									    </tr>
-									  </c:forEach>
-									  </tbody>
-								</table>
+	                        	<form action="addIntrInfo" method="POST">
+	                        		<div class="form-group">
+    									<label for="newsTitle">标题：</label>
+    									<input type="text" name="introduceinfo.arttitle" value="${introduceinfo.arttitle}" class="form-control" id="newsTitle" placeholder="输入标题">
+  									</div>
+  									<div class="form-group">
+    									<label for="author">作者：</label>
+    									<input type="text" name="introduceinfo.author" value="${introduceinfo.author}" class="form-control" id="author" placeholder="输入作者">
+  									</div>
+  									<div class="form-group">
+    									<label for="newsType">文章类型：</label>
+    									<select class="form-control" name="introduceinfo.arttype" style="display: inline-block;width: 140px; background: transparent;">
+											<option <c:if test="${introduceinfo.arttype==1}">selected</c:if> value="1">实验室简介</option>
+										    <option <c:if test="${introduceinfo.arttype==2}">selected</c:if> value="2">队伍概况</option>
+										    <option <c:if test="${introduceinfo.arttype==3}">selected</c:if> value="3">人才培养概况</option>
+										    <option <c:if test="${introduceinfo.arttype==4}">selected</c:if> value="4">科学研究概况</option>
+										</select>
+  									</div>
+  									<div class="form-group">
+						                <label for="content">内容：</label>
+						                <!-- <textarea name="content" id="content"></textarea> -->
+						                <!-- 加载编辑器的容器 -->
+									    <script id="content" name="introduceinfo.content" type="text/plain">${introduceinfo.content}</script>
+						            </div>
+						             <div class="form-group">
+                						<button type="submit" class="btn btn-primary js-btnsub">发布</button>
+            						</div>
+	                        	</form>
     						</div>
                     	</div>
         			</div>
     		</div>
-    	<!-- 第一个panel end-->
+    	<!-- panel end-->
+    	
         </div>
     </div>
- 	<script src="/scienceBase/admin/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="/scienceBase/admin/lib/bootstrap/js/bootstrap.js"></script>
+ 	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="../ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript" src="lib/addInfo_admin.js"></script>
 </body>
 </html>

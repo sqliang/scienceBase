@@ -47,4 +47,8 @@ public class NewsinfoManagerImpl extends BaseManagerImpl<Newsinfo> implements Ne
 		Newsinfo newsinfo = findbyHqlUnique("from Newsinfo where newsId=?", newsId);
 		return newsinfo;
 	}
+	@Override
+	public void delNewsById(long newsid) {
+		newsinfoDao.deletebyPropertys("newsid", newsid);
+	}
 }

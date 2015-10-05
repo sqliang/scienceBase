@@ -258,4 +258,34 @@ public class HomPageNewsAction extends BaseAction {
 			return ERROR;
 		}
 	}
+	
+	@Action(value = "delNewsById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/homeAdmin"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delNewsById(){
+		try {
+			 newsinfoManager.delNewsById(Integer.parseInt(newsId));
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "updateNewsinfoById", 
+			results = { 
+			@Result(name = "success", type = "dispatcher", location = "/admin/updateNews_admin.jsp", 
+					params = {"newsinfo","${newsinfo}"}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String updateNewsinfoById(){
+		try {
+			newsinfo = newsinfoManager.queryNewsinfoById(Integer.parseInt(newsId));
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
 }

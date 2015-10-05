@@ -16,4 +16,6 @@ public interface IntroduceinfoManager extends BaseManager<Introduceinfo> {
 	public List<Introduceinfo> find(String sqlkey);
 
 	public Introduceinfo queryLabIntrInfo(long artType);
+	
+	public Introduceinfo queryIntrInfoById(long artid);
 }

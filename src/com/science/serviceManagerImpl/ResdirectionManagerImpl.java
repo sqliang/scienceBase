@@ -43,6 +43,10 @@ public class ResdirectionManagerImpl extends BaseManagerImpl<Resdirection> imple
 		Resdirection resdirection = findbyHqlUnique("from Resdirection where dirId=?", dirId);
 		return resdirection;
 	}
+	@Override
+	public void delResdirById(long dirId) {
+		resdirectionDao.deletebyProperty("dirId", dirId);
+	}
 	
 	
 }

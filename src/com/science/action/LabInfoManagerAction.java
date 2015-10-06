@@ -401,6 +401,51 @@ public class LabInfoManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "/delResdirectionById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryLabInfo"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delResdirectionById(){
+		try {
+			resdirectionManager.delResdirById(Long.parseLong(dirId));
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "/delOrgById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryLabInfo"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delOrgById(){
+		try {
+			organizationManager.deletebyProperty("orgId", orgId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "/delOrgById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryLabInfo"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delLeaderInfoById(){
+		try {
+			organizationManager.deletebyProperty("orgId", orgId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
 	@Action(value = "addResdirection", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/admin/addLab_admin.jsp", 
@@ -447,4 +492,6 @@ public class LabInfoManagerAction extends BaseAction {
 			return ERROR;
 		}
 	}
+	
+	
 }

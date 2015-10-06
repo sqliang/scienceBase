@@ -18,5 +18,7 @@ public interface ResdirectionManager extends BaseManager<Resdirection> {
 	public List<Resdirection> findAllOrderyByTime();
 	
 	public Resdirection queryResdirById(long dirId);
+	
+	public void delResdirById(long dirId);
 
 }

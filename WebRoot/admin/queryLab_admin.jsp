@@ -106,8 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a>${resdirection.dirtitle}</a></td>
 									      <td>${resdirection.time}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delResdirectionById?dirId=${resdirection.dirid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  	</c:forEach>
@@ -142,8 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a>${organization.orgtitle}</a></td>
 									      <td>${organization.time}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delOrgById?orgId=${organization.orgid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  	</c:forEach>

@@ -3,7 +3,6 @@ package com.science.action;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Null;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
@@ -41,6 +40,8 @@ public class CommunicateManagerAction extends BaseAction {
 	private long limit;
 	private long start;
 	private long totalPages;
+	private String communicateId;
+	private String pubClassId;
 	
 	public List<Communicateinfo> getCommunicateinfos() {
 		return communicateinfos;
@@ -108,6 +109,18 @@ public class CommunicateManagerAction extends BaseAction {
 	}
 	public void setTotalPages(long totalPages) {
 		this.totalPages = totalPages;
+	}
+	public String getCommunicateId() {
+		return communicateId;
+	}
+	public void setCommunicateId(String communicateId) {
+		this.communicateId = communicateId;
+	}
+	public String getPubClassId() {
+		return pubClassId;
+	}
+	public void setPubClassId(String pubClassId) {
+		this.pubClassId = pubClassId;
 	}
 	@Action(value = "/queryCommuicateByType", 
 			results = { 
@@ -183,6 +196,20 @@ public class CommunicateManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "delCommunicateinfoById",
+			results = {
+				@Result(name = "success", type = "redirect", location = "/adminQueryComunicate"),
+						@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+						params = {"msg","${msg}"})})
+	public String delCommunicateinfoById(){
+		try {
+			communicateinfoManager.deletebyProperty("communicateId", communicateId);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
 	@Action(value = "addPubclassinfo",
 			results = {
 				@Result(name = "success", type = "dispatcher", location = "/admin/addCommunicate_admin.jsp",
@@ -198,7 +225,20 @@ public class CommunicateManagerAction extends BaseAction {
 			return ERROR;
 		}
 	 }
-
+	
+	@Action(value = "delPubclassinfoById",
+			results = {
+				@Result(name = "success", type = "redirect", location = "/adminQueryComunicate"),
+						@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+						params = {"msg","${msg}"})})
+	public String delPubclassinfoById(){
+		try {
+			pubclassinfoManager.deletebyProperty("pubClassId", pubClassId);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
 
 
 	

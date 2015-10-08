@@ -14,12 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/scienceBase/admin/lib/font-awesome/css/font-awesome.css">
 
    
-    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/theme.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/premium.css">
 
 </head>
 <body class=" theme-blue">
@@ -101,7 +101,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <th>项目开始时间</th>
 									      <th>项目结束时间</th>
 									      <th>项目经费</th>
-									      <th>项目简介</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -116,10 +115,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${projectinfo.projstarttime}</td>
 									      <td>${projectinfo.projendtime}</td>
 									      <td>${projectinfo.projfee}</td>
-									      <td><input class="btn btn-default" type="button" value="点击查看" style="border-radius:20px;width:90px;"></td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delProjectInfoById?projId=${projectinfo.projid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									   </c:forEach>
@@ -145,7 +142,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <th>作者</th>
 									      <th>发表期刊</th>
 									      <th>期刊详情信息</th>
-									      <th>收录情况</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -156,10 +152,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${paperinfo.paperauthor}</td>
 									      <td>${paperinfo.paperjounal}</td>
 									      <td>${paperinfo.journalinfo}</td>
-									      <td><input class="btn btn-default" type="button" value="点击查看"></td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delPaperInfoById?paperId=${paperinfo.paperid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -183,7 +177,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <th>专著名称</th>
 									      <th>作者</th>
-									      <th>专著简介</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -192,10 +185,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										    <tr>
 										      <td>${bookinfo.bookname}</td>
 										      <td>${bookinfo.bookauthor}</td>
-										      <td><input class="btn btn-default" type="button" value="点击查看"></td>
 										       <td>
-										          <a href=""><i class="fa fa-pencil"></i></a>
-										          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+										          <a href="delBookInfoById?bookId=${bookinfo.bookid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 										      </td>
 										    </tr>
 									  	</c:forEach>
@@ -222,7 +213,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <th>专利发明人</th>
 									      <th>批准时间</th>
 									      <th>专利审核状态</th>
-									      <th>专利简介</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -234,10 +224,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										      <td>${paptentinfo.paptentauthors}</td>
 										      <td>${paptentinfo.agreetime}</td>
 										      <td>${paptentinfo.paptentstatus}</td>
-										      <td><input class="btn btn-default" type="button" value="点击查看"></td>
 										       <td>
-										          <a href=""><i class="fa fa-pencil"></i></a>
-										          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+										          <a href="delPaptentInfoById?paptentId=${paptentinfo.paptentid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 										      </td>
 										    </tr>
 									  </c:forEach>
@@ -263,7 +251,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <th>奖励类型</th>
 									      <th>奖励等级</th>
 									      <th>完成人</th>
-									      <th>科研奖励简介</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -274,10 +261,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${labgradeinfo.gradetype}</td>
 									      <td>${labgradeinfo.gradedengji}</td>
 									      <td>${labgradeinfo.gradefinish}</td>
-									      <td><input class="btn btn-default" type="button" value="点击查看"></td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delLabGradeInfoById?labGradeId=${labgradeinfo.labgradeid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -301,7 +286,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <th>成果名称</th>
 									      <th>成果类型</th>
-									      <th>成果简介</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -310,10 +294,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <td>${presentachiveinfo.presentachivetitle}</td>
 									      <td>${presentachiveinfo.presentachivetype}</td>
-									      <td>${presentachiveinfo.presentachivecontent}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delPresentGradeInfoById?presentAchiveId=${presentachiveinfo.presentachiveid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -326,7 +308,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<!-- 第五个panel end-->
         </div>
     </div>
- 	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
+ 	<script src="/scienceBase/admin/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/scienceBase/admin/lib/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

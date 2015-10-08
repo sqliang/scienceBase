@@ -115,8 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      </c:choose>
 									      <td>${communicateinfo.time}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delCommunicateinfoById?communicateId=${communicateinfo.communicateid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -151,8 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a>${pubclassinfo.pubclasstitle}</a></td>
 									      <td>${pubclassinfo.time}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delPubclassinfoById?pubClassId=${pubclassinfo.pubclassid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>

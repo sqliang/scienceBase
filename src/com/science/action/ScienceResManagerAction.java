@@ -1,5 +1,6 @@
 package com.science.action;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -61,6 +62,13 @@ public class ScienceResManagerAction extends BaseAction {
 	private long limit;
 	private long start;
 	private long totalPages;
+	
+	private String projId;
+	private String paperId;
+	private String bookId;
+	private String paptentId;
+	private String labGradeId;
+	private String presentAchiveId; 
 	
 	
 	public List<Projectinfo> getProjectinfos() {
@@ -205,6 +213,53 @@ public class ScienceResManagerAction extends BaseAction {
 
 	public void setTotalPages(long totalPages) {
 		this.totalPages = totalPages;
+	}
+	public String getProjId() {
+		return projId;
+	}
+
+	public void setProjId(String projId) {
+		this.projId = projId;
+	}
+
+	public String getPaperId() {
+		return paperId;
+	}
+
+	public void setPaperId(String paperId) {
+		this.paperId = paperId;
+	}
+
+	public String getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getPaptentId() {
+		return paptentId;
+	}
+
+	public void setPaptentId(String paptentId) {
+		this.paptentId = paptentId;
+	}
+
+	public String getLabGradeId() {
+		return labGradeId;
+	}
+
+	public void setLabGradeId(String labGradeId) {
+		this.labGradeId = labGradeId;
+	}
+
+	public String getPresentAchiveId() {
+		return presentAchiveId;
+	}
+
+	public void setPresentAchiveId(String presentAchiveId) {
+		this.presentAchiveId = presentAchiveId;
 	}
 
 	@Action(value = "/queryProjectinfos", 
@@ -363,6 +418,21 @@ public class ScienceResManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "delProjectInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryScienceRes", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delProjectInfoById(){
+		try {
+			projectinfoManager.deletebyProperty("projId", projId);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
 	@Action(value = "addPaperInfo", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/admin/addScienceRes_admin.jsp", 
@@ -373,6 +443,21 @@ public class ScienceResManagerAction extends BaseAction {
 		try {
 			paperinfo.setTime(new Date(System.currentTimeMillis()));
 			paperinfoManager.save(paperinfo);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "delPaperInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryScienceRes", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delPaperInfoById(){
+		try {
+			paperinfoManager.deletebyProperty("paperId", paperId);
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -395,6 +480,21 @@ public class ScienceResManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "delBookInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryScienceRes", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delBookInfoById(){
+		try {
+			bookinfoManager.deletebyProperty("bookId", bookId);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
 	@Action(value = "addPaptentInfo", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/admin/addScienceRes_admin.jsp", 
@@ -410,9 +510,24 @@ public class ScienceResManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "delPaptentInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryScienceRes", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delPaptentInfoById(){
+		try {
+			paptentinfoManager.deletebyProperty("paptentId", paptentId);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
 	@Action(value = "addLabGradeInfo", 
 			results = { 
-			@Result(name = "success", type = "dispatcher", location = "/admin/addScienceRes_admin.jsp", 
+			@Result(name = "success", type = "dispatcher", location = "/adminQueryScienceRes", 
 					params = {}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
@@ -422,6 +537,23 @@ public class ScienceResManagerAction extends BaseAction {
 			labgradeinfoManager.save(labgradeinfo);
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "delLabGradeInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryScienceRes", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delLabGradeInfoById(){
+		try {
+			labgradeinfoManager.deletebyProperty("labGradeId",labGradeId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}
@@ -438,6 +570,22 @@ public class ScienceResManagerAction extends BaseAction {
 			presentachiveinfoManager.save(presentachiveinfo);
 			return SUCCESS;
 		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "delPresentGradeInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryScienceRes", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delPresentGradeInfoById(){
+		try {
+			presentachiveinfoManager.deletebyProperty("presentAchiveId", presentAchiveId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}

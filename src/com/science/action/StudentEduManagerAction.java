@@ -251,13 +251,13 @@ public class StudentEduManagerAction extends BaseAction {
 	
 	@Action(value = "delStudentInfoById", 
 			results = { 
-			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu", 
+			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu?pageNow=1", 
 					params = {}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String delStudentInfoById(){
 		try {
-			studentinfoManager.deletebyProperty("stuId", stuId);
+			studentinfoManager.deletebyProperty("stuId", Long.parseLong(stuId));
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -282,7 +282,7 @@ public class StudentEduManagerAction extends BaseAction {
 	
 	@Action(value = "delClassinfoById", 
 			results = { 
-			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu", 
+			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu?pageNow=1", 
 					params = {}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
@@ -314,7 +314,7 @@ public class StudentEduManagerAction extends BaseAction {
 	
 	@Action(value = "delClassGradeInfoById", 
 			results = { 
-			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu", 
+			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu?pageNow=1", 
 					params = {}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})

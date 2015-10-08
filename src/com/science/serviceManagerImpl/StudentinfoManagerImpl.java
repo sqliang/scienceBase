@@ -43,12 +43,12 @@ public class StudentinfoManagerImpl extends BaseManagerImpl<Studentinfo> impleme
 	}
 	@Override
 	public List<Studentinfo> queryStudentByFenye(String stuDegree,long start, long limit) {
-		List<Studentinfo> studentinfos = studentinfoDao.findByHqlP("from Studentinfo where stuDegree=? order by stuId Asc",(int)start, (int)limit,stuDegree);
+		List<Studentinfo> studentinfos = studentinfoDao.findByHqlP("from Studentinfo where stuDegree=? order by stuId Desc",(int)start, (int)limit,stuDegree);
 		return studentinfos;
 	}
 	@Override
 	public List<Studentinfo> adminQueryStudent(long start, long limit) {
-		List<Studentinfo> studentinfos = studentinfoDao.findByHqlP("from Studentinfo order by stuId Asc",(int)start, (int)limit);
+		List<Studentinfo> studentinfos = studentinfoDao.findByHqlP("from Studentinfo order by stuId Desc",(int)start, (int)limit);
 		return studentinfos;
 	}	
 }

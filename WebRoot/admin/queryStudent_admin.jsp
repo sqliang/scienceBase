@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${studentinfo.sturesdirection}</td>
 									      <td>${studentinfo.papertitle}</td>
 									       <td>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delStudentInfoById?stuId=${studentinfo.stuid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -200,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${classinfo.classteacher}</td>
 									      <td>${classinfo.toobject}</td>
 									       <td>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delClassinfoById?classId=${classinfo.classid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -225,7 +225,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <th>#</th>
 									      <th>教学成果标题</th>
 									      <th>成果获取时间</th>
-									      <th>教学成果简介</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -235,10 +234,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${status.index + 1}</td>
 									      <td>${classgradeinfo.gradetitle}</td>
 									      <td>${classgradeinfo.time}</td>
-									     <td><input class="btn btn-default" type="button" value="点击查看" style="border-radius:20px;width:90px;"></td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delClassGradeInfoById?gradeId=${classgradeinfo.gradeid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>

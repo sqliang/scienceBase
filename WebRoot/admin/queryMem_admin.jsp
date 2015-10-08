@@ -14,12 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/scienceBase/admin/lib/font-awesome/css/font-awesome.css">
 
    
-    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/theme.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/premium.css">
 
 </head>
 <body class=" theme-blue">
@@ -95,12 +95,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <th>#</th>
 									      <th>姓名</th>
-									      <th>性别</th>
-									      <th>年龄</th>
-									      <th>学位</th>
 									      <th>职称</th>
+                                          <th>人才计划</th>
 									      <th>人才类型</th>
-									      <th>人才称号</th>
 									      <th>工作年限</th>
 									      <th>是否访问学者</th>
 									      <th style="width: 3.5em;"></th>
@@ -111,19 +108,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <td>${status.index + 1}</td>
 									      <td><a>${memberinfo.memname}</a></td>
-									      <c:choose>
-									      	<c:when test="${memberinfo.memsex == 1}">
-									      		<td>男</td>
-									      	</c:when>
-									      	<c:when test="${memberinfo.memsex == 0}">
-									      		<td>女</td>
-									      	</c:when>
-									      </c:choose>
-									      <td>${memberinfo.memage}</td>
-									      <td>${memberinfo.memdegree}</td>
 									      <td>${memberinfo.memjobtitle}</td>
-									      <td>${memberinfo.memtype}</td>
-									      <td>${memberinfo.memchenghao}</td>
+									      <td>${memberinfo.perplain}</td>
+                                          <td>${memberinfo.memtype}</td>
 									      <td>${memberinfo.memjobage}</td>
 									      <c:choose>
 									      	<c:when test="${memberinfo.foreigntype == 1}">
@@ -134,8 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      	</c:when>
 									      </c:choose>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delMemInfoById?memId=${memberinfo.memid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -148,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<!-- 第一个panel end-->
         </div>
     </div>
- 	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
+ 	<script src="/scienceBase/admin/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/scienceBase/admin/lib/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

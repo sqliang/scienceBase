@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </li>
         <li>
 	        <ul class="student-menu nav nav-list collapse">
-	           <li ><a href="adminQueryStudentEdu"><span class="fa fa-caret-right"></span> 信息查看</a></li>
+	           <li ><a href="adminQueryStudentEdu?pageNow=1"><span class="fa fa-caret-right"></span> 信息查看</a></li>
 	           <li ><a href="/scienceBase/admin/addPersonEdu_admin.jsp"><span class="fa fa-caret-right"></span> 信息发布</a></li>
 	    	</ul>
     	</li>

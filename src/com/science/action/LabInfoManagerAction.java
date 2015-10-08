@@ -60,6 +60,8 @@ public class LabInfoManagerAction extends BaseAction {
 	private Acainfo acainfo;
 	private String orgId;
 	private String dirId;
+	private String leaderId;
+	private String acaId;
 	
 
 	public List<Resdirection> getResdirections() {
@@ -253,6 +255,22 @@ public class LabInfoManagerAction extends BaseAction {
 	public void setDirId(String dirId) {
 		this.dirId = dirId;
 	}
+	
+	public String getLeaderId() {
+		return leaderId;
+	}
+
+	public void setLeaderId(String leaderId) {
+		this.leaderId = leaderId;
+	}
+	
+	public String getAcaId() {
+		return acaId;
+	}
+
+	public void setAcaId(String acaId) {
+		this.acaId = acaId;
+	}
 
 	@Action(value = "/queryAcainfos", 
 			results = { 
@@ -431,14 +449,29 @@ public class LabInfoManagerAction extends BaseAction {
 		}
 	}
 	
-	@Action(value = "/delOrgById", 
+	@Action(value = "/delLeaderInfoById", 
 			results = { 
 			@Result(name = "success", type = "redirect", location = "/adminQueryLabInfo"),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String delLeaderInfoById(){
 		try {
-			organizationManager.deletebyProperty("orgId", orgId);
+			leaderinfoManager.deletebyProperty("leaderId", leaderId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "/delAcaInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryLabInfo"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delAcaInfoById(){
+		try {
+			acainfoManager.deletebyProperty("acaId", acaId);
 			return SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();

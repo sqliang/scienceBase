@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     	<!-- 第二个panel end-->
     	<!-- 第三个panel -->
-    		<div class="panel panel-default">
+    		<!-- <div class="panel panel-default">
         			<a href="#leader" class="panel-heading" data-toggle="collapse">
         				领导人员信息发布
         			</a>
@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     									<select class="form-control" style="display: inline-block;width: 120px; background: transparent;">
 											<option value="1">主任</option>
 										    <option value="2">副主任</option>
-										    <option value="3">秘书</option>
+										    <option value="3">委员</option>
 										</select>
   									</div>
   									<div class="form-group">
@@ -170,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     		</div>
                     	</div>
         			</div>
-    		</div>
+    		</div> -->
     	<!-- 第三个panel end-->
     	<!-- 第四个panel -->
     		<div class="panel panel-default">

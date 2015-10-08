@@ -55,6 +55,7 @@ public class MemberManagerAction extends BaseAction {
 	private List<Memberinfo> baiPersons;
 	private String huangShan;
 	private List<Memberinfo> huangShans;
+	private String memId;
 	
 	public List<Memberinfo> getMemberinfos() {
 		return memberinfos;
@@ -280,6 +281,12 @@ public class MemberManagerAction extends BaseAction {
 	public void setHuangShans(List<Memberinfo> huangShans) {
 		this.huangShans = huangShans;
 	}
+	public String getMemId() {
+		return memId;
+	}
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
 	@Action(value = "/queryMemByysType", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_mem.jsp", 
@@ -371,7 +378,6 @@ public class MemberManagerAction extends BaseAction {
 			fuProfessions = memberinfoManager.queryMemInfosByMemTypeJobTitle(memType, fuProfess);
 			jiangShis = memberinfoManager.queryMemInfosByMemTypeJobTitle(memType, jiangshi);
 			othersMem = memberinfoManager.queryMemByMemTypeNotIn(memType, profess, fuProfess, jiangshi);
-			System.out.println("=====>>>" + othersMem.get(0).getMemname());
 			subMenuName = StringUtil.convertCodeToUtf(subMenuName);
 			mainMenuId = submenuManager.querySubByName(subMenuName).getMainmenuid();
 			return SUCCESS;
@@ -437,7 +443,22 @@ public class MemberManagerAction extends BaseAction {
 			memberinfos = memberinfoManager.findAll();
 			return SUCCESS;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "/delMemInfoById", 
+			results = {
+			@Result(name = "success", type = "redirect", location = "/adminQueryMemInfos"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delMemInfoById(){
+		try {
+			memberinfoManager.deletebyProperty("memId", memId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}

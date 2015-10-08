@@ -176,7 +176,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <td>${status.index + 1}</td>
 									      <td><a>${leaderinfo.memberinfomemid.memname}</a></td>
-									      <td>${leaderinfo.position}</td>
+									      <c:if test="${leaderinfo.position == 1}">
+									      	<td>主任</td>
+									      </c:if>
+									      <c:if test="${leaderinfo.position == 2}">
+									      <td>副主任</td>
+									      </c:if>
+									      <c:if test="${leaderinfo.position == 3}">
+									      <td>委员</td>
+									      </c:if>
 									      <c:choose>
 									      <c:when test="${leaderinfo.leadertype == 1}">
 									      	<td>是</td>
@@ -187,8 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      </c:choose>
 									      <td>${leaderinfo.officedate}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delLeaderInfoById?leaderId=${leaderinfo.leaderid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -238,8 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${acainfo.officedate}</td>
 									      <td><a>${acainfo.intrurl}</a></td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delAcaInfoById?acaId=${acainfo.acaid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>

@@ -14,12 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/scienceBase/admin/lib/font-awesome/css/font-awesome.css">
 
    
-    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/theme.css">
+    <link rel="stylesheet" type="text/css" href="/scienceBase/admin/stylesheets/premium.css">
 
 </head>
 <body class=" theme-blue">
@@ -95,13 +95,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <th>#</th>
 									      <th>姓名</th>
-									      <th>性别</th>
 									      <th>学位</th>
 									      <th>学生导师</th>
 									      <th>学生专业</th>
 									      <th>研究方向</th>
 									      <th>毕业论文题目</th>
-									      <th>参与科研情况</th>
 									      <th style="width: 3.5em;"></th>
 									    </tr>
 									  </thead>
@@ -110,21 +108,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <tr>
 									      <td>${status.index + 1}</td>
 									      <td>${studentinfo.stuname}</td>
-									      <td>${studentinfo.stusex}</td>
 									      <td>${studentinfo.studegree}</td>
 									      <td>${studentinfo.stuteacher}</td>
 									      <td>${studentinfo.stumaster}</td>
 									      <td>${studentinfo.sturesdirection}</td>
 									      <td>${studentinfo.papertitle}</td>
-									      <td><input class="btn btn-default" type="button" value="点击查看" style="border-radius:20px;width:90px;"></td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
 									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
 									  </tbody>
 								</table>
+	    						<nav>
+								  <ul class="pagination">
+								  	<c:choose>
+				          				<c:when test="${pageNow > 1}">
+										<li>
+									      <a href="adminQueryStudentEdu?pageNow=${pageNow-1}" aria-label="Previous">
+									        <span aria-hidden="true">&laquo;</span>
+									      </a>
+									    </li>
+				          				</c:when>
+				          				<c:otherwise>
+											<li>
+										       <a href="javascript:;" aria-label="Previous">
+											        <span aria-hidden="true">&laquo;</span>
+											    </a>
+										    </li>
+										</c:otherwise>
+			          				</c:choose>
+								    <c:forEach var="index" begin="1" end="${totalPages}" step="1">
+										<c:choose>
+											<c:when test="${pageNow == index}">
+												<li class="active"><a href="adminQueryStudentEdu?pageNow=${pageNow}">${pageNow}</a></li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="adminQueryStudentEdu?pageNow=${index}">${index}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${pageNow < totalPages}">
+											<li>
+										      <a href="adminQueryStudentEdu?pageNow=${pageNow+1}" aria-label="Next">
+										        <span aria-hidden="true">&raquo;</span>
+										      </a>
+										    </li>
+										</c:when>
+										<c:otherwise>
+											<li>
+										      <a href="javascript:;" aria-label="Next">
+										        <span aria-hidden="true">&raquo;</span>
+										      </a>
+										    </li>
+										</c:otherwise>
+									</c:choose>
+								    
+								  </ul>
+								</nav>
     						</div>
                     	</div>
         			</div>
@@ -158,7 +200,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td>${classinfo.classteacher}</td>
 									      <td>${classinfo.toobject}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
 									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
@@ -210,7 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<!-- 第三个panel end-->
         </div>
     </div>
- 	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
+ 	<script src="/scienceBase/admin/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/scienceBase/admin/lib/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

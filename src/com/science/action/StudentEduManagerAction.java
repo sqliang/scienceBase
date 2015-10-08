@@ -46,6 +46,10 @@ public class StudentEduManagerAction extends BaseAction {
 	private long start;
 	private long totalPages;
 	
+	private String stuId;
+	private String classId;
+	private String gradeId;
+	
 	public String getStuDegree() {
 		return stuDegree;
 	}
@@ -125,6 +129,24 @@ public class StudentEduManagerAction extends BaseAction {
 	public void setTotalPages(long totalPages) {
 		this.totalPages = totalPages;
 	}
+	public String getStuId() {
+		return stuId;
+	}
+	public void setStuId(String stuId) {
+		this.stuId = stuId;
+	}
+	public String getClassId() {
+		return classId;
+	}
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
+	public String getGradeId() {
+		return gradeId;
+	}
+	public void setGradeId(String gradeId) {
+		this.gradeId = gradeId;
+	}
 	@Action(value = "/queryClassGradeinfoByTime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_classgrade.jsp", 
@@ -191,16 +213,22 @@ public class StudentEduManagerAction extends BaseAction {
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/admin/queryStudent_admin.jsp", 
 					params = {"studentinfos","${studentinfos}","classinfos","${classinfos}",
-							  "classgradeinfos","${classgradeinfos}"}),
+							  "classgradeinfos","${classgradeinfos}",
+							  "totalPages","${totalPages}","pageNow","${pageNow}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String adminQueryStudentEdu(){
 		try {
-			studentinfos = studentinfoManager.findAll();//学生信息
+			long totalCount = Long.parseLong(jManager.simpleSQL("select count(*) from studentinfo"));
+			limit = 20;
+			start = (Integer.parseInt(pageNow) - 1)*limit;
+			totalPages = (totalCount + limit -1)/limit;
+			studentinfos = studentinfoManager.adminQueryStudent(start, limit);
 			classinfos = classinfoManager.queryClassinfoByTime();
 			classgradeinfos = classgradeinfoManager.queryClassGradeinfoByTime();
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}
@@ -215,6 +243,21 @@ public class StudentEduManagerAction extends BaseAction {
 		try {
 			/*introduceinfo.setTime(new Date(System.currentTimeMillis()));*/
 			studentinfoManager.save(studentinfo);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "delStudentInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delStudentInfoById(){
+		try {
+			studentinfoManager.deletebyProperty("stuId", stuId);
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
@@ -237,6 +280,22 @@ public class StudentEduManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "delClassinfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delClassinfoById(){
+		try {
+			classinfoManager.deletebyProperty("classId", classId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
 	@Action(value = "addClassGradeInfo", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/admin/addPersonEdu_admin.jsp", 
@@ -248,6 +307,23 @@ public class StudentEduManagerAction extends BaseAction {
 			classgradeinfoManager.save(classgradeinfo);
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "delClassGradeInfoById", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryStudentEdu", 
+					params = {}),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delClassGradeInfoById(){
+		try {
+			classgradeinfoManager.deletebyProperty("gradeId", gradeId);
+			return SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}

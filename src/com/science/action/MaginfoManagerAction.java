@@ -39,6 +39,7 @@ public class MaginfoManagerAction extends BaseAction {
 	private long totalPages;
 	
 	private  Evaluationinfo evaluationinfo;
+	private String evaluationId;
 	
 	public List<Evaluationinfo> getEvaluationinfos() {
 		return evaluationinfos;
@@ -109,6 +110,12 @@ public class MaginfoManagerAction extends BaseAction {
 	}
 	public void setTotalPages(long totalPages) {
 		this.totalPages = totalPages;
+	}
+	public String getEvaluationId() {
+		return evaluationId;
+	}
+	public void setEvaluationId(String evaluationId) {
+		this.evaluationId = evaluationId;
 	}
 	@Action(value = "/queryEvaluationBytime", 
 			results = { 
@@ -203,6 +210,19 @@ public class MaginfoManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "/delEvaluationinfoByid", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryMag"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delEvaluationinfoByid(){
+		try {
+			evaluationinfoManager.deletebyProperty("evaluationId", evaluationId);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
 	@Action(value = "addMagsysinfo",
 			results = {
 				@Result(name = "success", type = "dispatcher", location = "/admin/addMag_admin.jsp",
@@ -212,6 +232,20 @@ public class MaginfoManagerAction extends BaseAction {
 	public String addMagsysinfo(){
 		try {
 			magsysinfoManager.save(magsysinfo);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "/delMagsysByid", 
+			results = { 
+			@Result(name = "success", type = "redirect", location = "/adminQueryMag"),
+			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+					params = {"msg","${msg}"})})
+	public String delMagsysByid(){
+		try {
+			magsysinfoManager.deletebyProperty("magSysId", magsysid);
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

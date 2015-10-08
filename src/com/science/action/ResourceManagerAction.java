@@ -1,5 +1,6 @@
 package com.science.action;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class ResourceManagerAction extends BaseAction {
 	
 	private Resourceinfo resourceinfo;
 	private Scienceedu scienceedu;
+	private String scienceId;
+	private String resourceId;
 	
 	public List<Resourceinfo> getResourceinfos() {
 		return resourceinfos;
@@ -75,6 +78,18 @@ public class ResourceManagerAction extends BaseAction {
 	}
 	public void setMainMenuId(long mainMenuId) {
 		this.mainMenuId = mainMenuId;
+	}
+	public String getScienceId() {
+		return scienceId;
+	}
+	public void setScienceId(String scienceId) {
+		this.scienceId = scienceId;
+	}
+	public String getResourceId() {
+		return resourceId;
+	}
+	public void setResourceId(String resourceId) {
+		this.resourceId = resourceId;
 	}
 	@Action(value = "/queryResourceByType", 
 			results = { 
@@ -144,6 +159,21 @@ public class ResourceManagerAction extends BaseAction {
 		}
 	}
 	
+	@Action(value = "delResourceinfoById",
+			results = {
+				@Result(name = "success", type = "redirect", location = "/adminQueryResource",
+						params = {}),
+				@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+						params = {"msg","${msg}"})})
+	public String delResourceinfoById(){
+		try {
+			resourceinfoManager.deletebyProperty("resourceId", resourceId);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
 	@Action(value = "addScienceedu",
 			results = {
 				@Result(name = "success", type = "dispatcher", location = "/admin/addResource_admin.jsp",
@@ -154,6 +184,21 @@ public class ResourceManagerAction extends BaseAction {
 		try {
 			scienceedu.setTime(new Date(System.currentTimeMillis()));
 			scienceeduManager.save(scienceedu);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@Action(value = "delScienceeduById",
+			results = {
+				@Result(name = "success", type = "redirect", location = "/adminQueryResource",
+						params = {}),
+				@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
+						params = {"msg","${msg}"})})
+	public String delScienceeduById(){
+		try {
+			scienceeduManager.deletebyProperty("scienceId", scienceId);
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

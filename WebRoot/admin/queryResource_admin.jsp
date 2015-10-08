@@ -115,8 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      </c:choose>
 									      <td>${resourceinfo.time}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delResourceinfoById?resourceId=${resourceinfo.resourceid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -151,8 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a>${scienceedu.sciencetitle}</a></td>
 									      <td>${scienceedu.time}</td>
 									       <td>
-									          <a href=""><i class="fa fa-pencil"></i></a>
-									          <a href="" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+									          <a href="delScienceeduById?scienceId=${scienceedu.scienceid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
 									  </c:forEach>
@@ -167,5 +165,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
  	<script src="/scienceBase/admin/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="/scienceBase/admin/lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+    $(".nav-header").addClass("collapsed");
+    $(".sidebar-nav ul li ul.nav-list").removeClass("in");
+    $(".nav-header").eq(7).removeClass("collapsed");
+    $(".sidebar-nav ul li ul.nav-list").eq(7).addClass("in");
+    </script>
 </body>
 </html>

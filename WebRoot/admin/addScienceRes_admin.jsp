@@ -316,5 +316,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
  	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+    $(".nav-header").addClass("collapsed");
+    $(".sidebar-nav ul li ul.nav-list").removeClass("in");
+    $(".nav-header").eq(5).removeClass("collapsed");
+    $(".sidebar-nav ul li ul.nav-list").eq(5).addClass("in");
+    </script>
 </body>
 </html>

@@ -147,6 +147,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        wordCount : true
 		};
 		var ue = UE.getEditor('content',option);
+	    $(".nav-header").addClass("collapsed");
+	    $(".sidebar-nav ul li ul.nav-list").removeClass("in");
+	    $(".nav-header").eq(8).removeClass("collapsed");
+	    $(".sidebar-nav ul li ul.nav-list").eq(8).addClass("in");
 	});
 	</script>
 </body>

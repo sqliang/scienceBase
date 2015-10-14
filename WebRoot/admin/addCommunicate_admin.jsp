@@ -164,6 +164,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		};
 		var ueCom = UE.getEditor('comContent',option);
 		var uePubClass = UE.getEditor('pubClassContent');
+	    $(".nav-header").addClass("collapsed");
+	    $(".sidebar-nav ul li ul.nav-list").removeClass("in");
+	    $(".nav-header").eq(6).removeClass("collapsed");
+	    $(".sidebar-nav ul li ul.nav-list").eq(6).addClass("in");
 	});
 	</script>
 </body>

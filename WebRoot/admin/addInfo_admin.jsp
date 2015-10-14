@@ -123,5 +123,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="../ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" src="../ueditor/ueditor.all.min.js"></script>
 	<script type="text/javascript" src="lib/addInfo_admin.js"></script>
+	<script type="text/javascript">
+    $(".nav-header").addClass("collapsed");
+    $(".sidebar-nav ul li ul.nav-list").removeClass("in");
+    $(".nav-header").eq(1).removeClass("collapsed");
+    $(".sidebar-nav ul li ul.nav-list").eq(1).addClass("in");
+    </script>
 </body>
 </html>

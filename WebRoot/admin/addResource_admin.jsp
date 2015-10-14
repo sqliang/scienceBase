@@ -160,6 +160,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	        wordCount : true
     	};
     	var ue = UE.getEditor('content',option);
+        $(".nav-header").addClass("collapsed");
+        $(".sidebar-nav ul li ul.nav-list").removeClass("in");
+        $(".nav-header").eq(7).removeClass("collapsed");
+        $(".sidebar-nav ul li ul.nav-list").eq(7).addClass("in");
     });
     </script>
 </body>

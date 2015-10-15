@@ -86,27 +86,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="communicate" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addCommunicateinfo" method="POST">
                     				<div class="form-group">
     									<label for="communicateTitle">*交流信息标题：</label>
-    									<input type="text" class="form-control" id="communicateTitle" placeholder="输入交流信息标题">
+    									<input name="communicateinfo.communicatetitle" type="text" class="form-control" id="communicateTitle" placeholder="输入交流信息标题">
   									</div>
   									<div class="form-group">
     									<label for="communicateType">*交流信息类型：</label>
-    									<select class="form-control" id="communicateType" style="display: inline-block;width: 140px; background: transparent;">
+    									<select name="communicateinfo.communicatetype" class="form-control" id="communicateType" style="display: inline-block;width: 140px; background: transparent;">
 											<option value="1">国内交流</option>
 										    <option value="2">国际交流</option>
 										</select>
   									</div>
   									<div class="form-group">
     									<label for="sub-time">*时间：</label>
-    									<input type="date" class="form-control" id="sub-time">
+    									<input name="communicateinfo.time" type="date" class="form-control" id="sub-time">
   									</div>
   									<div class="form-group">
 						                <label for="comContent">交流信息内容：</label>
 						                <!-- <textarea name="content" id="content"></textarea> -->
 						                <!-- 加载编辑器的容器 -->
-									    <script id="comContent" name="content" type="text/plain">请输入内容</script>
+									    <script id="comContent" name="communicateinfo.communicatecontent" type="text/plain">请输入内容</script>
 						            </div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>
@@ -125,20 +125,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="pubClass" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addPubclassinfo" method="POST">
                     				<div class="form-group">
     									<label for="pubClassTitle">开放课题标题：</label>
-    									<input type="text" class="form-control" id="pubClassTitle" placeholder="输入开放课题标题">
+    									<input name="pubclassinfo.pubclasstitle" type="text" class="form-control" id="pubClassTitle" placeholder="输入开放课题标题">
   									</div>
   									<div class="form-group">
     									<label for="subTime">时间：</label>
-    									<input type="date" class="form-control" id="subTime">
+    									<input name="pubclassinfo.time" type="date" class="form-control" id="subTime">
   									</div>
   									<div class="form-group">
 						                <label for="pubClassContent">内容：</label>
 						                <!-- <textarea name="content" id="content"></textarea> -->
 						                <!-- 加载编辑器的容器 -->
-									    <script id="pubClassContent" name="content" type="text/plain">请输入内容</script>
+									    <script id="pubClassContent" name="pubclassinfo.pubclasscontent" type="text/plain">请输入内容</script>
 						            </div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>

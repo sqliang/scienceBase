@@ -85,42 +85,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="project" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addProjectInfo" method="POST">
                     				<div class="form-group">
     									<label for="project-code">项目编号：</label>
-    									<input type="text" class="form-control" id="project-code" placeholder="输入项目编号">
+    									<input name="projectinfo.projcode" type="text" class="form-control" id="project-code" placeholder="输入项目编号">
   									</div>
                     				<div class="form-group">
     									<label for="proj-name">项目名称：</label>
-    									<input type="text" class="form-control" id="proj-name" placeholder="输入项目名称">
+    									<input name="projectinfo.projname" type="text" class="form-control" id="proj-name" placeholder="输入项目名称">
   									</div>
   									<div class="form-group">
     									<label for="proj-type">项目类型：</label>
-    									<input type="text" class="form-control" id="proj-type" placeholder="输入项目名称">
+    									<input type="text" name="projectinfo.projtype" class="form-control" id="proj-type" placeholder="输入项目名称">
   									</div>
   									<div class="form-group">
     									<label for="projAgreeOrg">批准部门：</label>
-    									<input type="text" class="form-control" id="projAgreeOrg" placeholder="输入批准部门">
+    									<input type="text" class="form-control" name="projectinfo.projagreeorg" id="projAgreeOrg" placeholder="输入批准部门">
   									</div>
   									<div class="form-group">
     									<label for="projMasterPerson">项目负责人：</label>
-    									<input type="text" class="form-control" id="projMasterPerson" placeholder="输入项目负责人">
+    									<input type="text" name="projectinfo.projmasterperson" class="form-control" id="projMasterPerson" placeholder="输入项目负责人">
   									</div>
   									<div class="form-group">
     									<label for="projStartTime">项目开始时间：</label>
-    									<input type="date" class="form-control" id="projStartTime">
+    									<input type="date" name="projectinfo.projstarttime" class="form-control" id="projStartTime">
   									</div>
   									<div class="form-group">
     									<label for="projEndTime">项目结束时间：</label>
-    									<input type="date" class="form-control" id="projEndTime">
+    									<input type="date" name="projectinfo.projendtime" class="form-control" id="projEndTime">
   									</div>
   									<div class="form-group">
     									<label for="projFee">项目经费：</label>
-    									<input type="text" class="form-control" id="projFee" placeholder="输入项目经费">
+    									<input type="text" name="projectinfo.projfee" class="form-control" id="projFee" placeholder="输入项目经费">
   									</div>
   									<div class="form-group">
     									<label for="projContent">项目简介：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="projContents" placeholder="输入简介内容"></textarea>
+    									<textarea name="projectinfo.projcontent" style="height:100px;resize:none;" class="form-control" id="projContents" placeholder="输入简介内容"></textarea>
   									</div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>
@@ -139,26 +139,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="paper" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addPaperInfo" method="POST">
                     				<div class="form-group">
     									<label for="paperName">论文题目：</label>
-    									<input type="text" class="form-control" id="paperName" placeholder="输入论文名称">
+    									<input name="paperinfo.papername" type="text" class="form-control" id="paperName" placeholder="输入论文名称">
   									</div>
   									<div class="form-group">
     									<label for="paperAuthor">作者：</label>
-    									<input type="text" class="form-control" id="paperAuthor" placeholder="输入作者名字">
+    									<input name="paperinfo.paperauthor" type="text" class="form-control" id="paperAuthor" placeholder="输入作者名字">
   									</div>
   									<div class="form-group">
     									<label for="paperJournal">发表期刊名称：</label>
-    									<input type="text" class="form-control" id="paperJournal" placeholder="输入批准部门">
+    									<input type="text" name="paperinfo.paperjounal" class="form-control" id="paperJournal" placeholder="输入批准部门">
   									</div>
   									<div class="form-group">
     									<label for="JournalInfo">期刊信息：</label>
-    									<input type="text" class="form-control" id="JournalInfo" placeholder="输入期刊信息，如：年／卷／期">
+    									<input type="text" name="paperinfo.journalinfo" class="form-control" id="JournalInfo" placeholder="输入期刊信息，如：年／卷／期">
   									</div>
   									<div class="form-group">
     									<label for="paperInclude">收录情况：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="paperInclude" placeholder="输入收录情况信息"></textarea>
+    									<textarea name="paperinfo.paperinclude" style="height:100px;resize:none;" class="form-control" id="paperInclude" placeholder="输入收录情况信息"></textarea>
   									</div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>
@@ -177,18 +177,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="bookInfo" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addBookInfo" method="POST">
                     				<div class="form-group">
     									<label for="bookName">专著名称：</label>
-    									<input type="text" class="form-control" id=""bookName"" placeholder="输入专著名称">
+    									<input type="text" name="bookinfo.bookname" class="form-control" id=""bookName"" placeholder="输入专著名称">
   									</div>
   									<div class="form-group">
     									<label for="bookAuthor">作者：</label>
-    									<input type="text" class="form-control" id="paperAuthor" placeholder="输入作者名字">
+    									<input type="text" name="bookinfo.bookauthor" class="form-control" id="paperAuthor" placeholder="输入作者名字">
   									</div>
   									<div class="form-group">
     									<label for="bookIntr">专著简介：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="bookIntr" placeholder="输入专著简介信息"></textarea>
+    									<textarea name="bookinfo.bookintro" style="height:100px;resize:none;" class="form-control" id="bookIntr" placeholder="输入专著简介信息"></textarea>
   									</div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>
@@ -207,33 +207,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="paptent" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addPaptentInfo" method="POST">
                     				<div class="form-group">
     									<label for="paptentName">*专利名称：</label>
-    									<input type="text" class="form-control" id="paptentName" placeholder="输入专利名称">
+    									<input type="text" name="paptentinfo.paptentname" class="form-control" id="paptentName" placeholder="输入专利名称">
   									</div>
   									<div class="form-group">
     									<label for="paptentType">*专利类型：</label>
-    									<input type="text" class="form-control" id="paptentType" placeholder="输入专利类型">
+    									<input type="text" name="paptentinfo.paptenttype" class="form-control" id="paptentType" placeholder="输入专利类型">
   									</div>
   									<div class="form-group">
     									<label for="paptentAuthors">*专利发明人：</label>
-    									<input type="text" class="form-control" id="paptentAuthors" placeholder="输入专利发明人">
+    									<input type="text" name="paptentinfo.paptentauthors" class="form-control" id="paptentAuthors" placeholder="输入专利发明人">
   									</div>
   									<div class="form-group">
     									<label for="agreeTime">*批准时间：</label>
-    									<input type="date" class="form-control" id="agreeTime">
+    									<input type="date" name="paptentinfo.agreetime" class="form-control" id="agreeTime">
   									</div>
   									<div class="form-group">
     									<label for="paptentStatus">*专利审核状态：</label>
-    									<select class="form-control" id="paptentStatus" style="display: inline-block;width: 140px; background: transparent;">
+    									<select class="form-control" name="paptentinfo.paptentstatus" id="paptentStatus" style="display: inline-block;width: 140px; background: transparent;">
 											<option value="授权">授权</option>
 										    <option value="实审">实审</option>
 										</select>
   									</div>
   									<div class="form-group">
     									<label for="paptentIntr">专利简介：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="paptentIntr" placeholder="输入简介信息"></textarea>
+    									<textarea style="height:100px;resize:none;" name="paptentinfo.paptentintr" class="form-control" id="paptentIntr" placeholder="输入简介信息"></textarea>
   									</div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>
@@ -252,26 +252,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="grade-box" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addLabGradeInfo" method="POST">
                     				<div class="form-group">
     									<label for="gradeName">*奖励名称：</label>
-    									<input type="text" class="form-control" id="gradeTitle" placeholder="输入成果标题">
+    									<input type="text" name="labgradeinfo.gradename" class="form-control" id="gradeTitle" placeholder="输入成果标题">
   									</div>
   									<div class="form-group">
   										<label for="gradeType">*奖励类型：</label>
-  										<input type="text" class="form-control" id="gradeType" placeholder="输入奖励类型">
+  										<input type="text" name="labgradeinfo.gradetype" class="form-control" id="gradeType" placeholder="输入奖励类型">
             						</div>
             						<div class="form-group">
   										<label for="gradeDengJi">*奖励等级：</label>
-  										<input type="text" class="form-control" id="gradeDengJi" placeholder="输入奖励等级">
+  										<input type="text" name="labgradeinfo.gradedengji" class="form-control" id="gradeDengJi" placeholder="输入奖励等级">
             						</div>
             						<div class="form-group">
   										<label for="gradeFinish">*完成人：</label>
-  										<input type="text" class="form-control" id="gradeFinish" placeholder="输入完成人">
+  										<input type="text" name="labgradeinfo.gradefinish" class="form-control" id="gradeFinish" placeholder="输入完成人">
             						</div>
   									<div class="form-group">
     									<label for="gradeIntr">科研奖励简介：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="gradeIntr" placeholder="输入成果简介内容"></textarea>
+    									<textarea name="labgradeinfo.gradeintr" style="height:100px;resize:none;" class="form-control" id="gradeIntr" placeholder="输入成果简介内容"></textarea>
   									</div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>
@@ -290,18 +290,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="presentAchive" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addPresentGradeInfo" method="POST">
                     				<div class="form-group">
     									<label for="presentAchiveTitle">*成果名称：</label>
-    									<input type="text" class="form-control" id="presentAchiveTitle" placeholder="输入成果标题">
+    									<input type="text" name="presentachiveinfo.presentachivetitle" class="form-control" id="presentAchiveTitle" placeholder="输入成果标题">
   									</div>
   									<div class="form-group">
   										<label for="presentAchiveType">*成果类型：</label>
-  										<input type="text" class="form-control" id="presentAchiveType" placeholder="输入成果类型">
+  										<input type="text" name="presentachiveinfo.presentachivetype" class="form-control" id="presentAchiveType" placeholder="输入成果类型">
             						</div>
   									<div class="form-group">
     									<label for="presentAchiveContent">成果简介：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="presentAchiveContent" placeholder="输入成果简介内容"></textarea>
+    									<textarea style="height:100px;resize:none;" name="presentachiveinfo.presentachivecontent" class="form-control" id="presentAchiveContent" placeholder="输入成果简介内容"></textarea>
   									</div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>

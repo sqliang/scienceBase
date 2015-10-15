@@ -527,7 +527,7 @@ public class ScienceResManagerAction extends BaseAction {
 	
 	@Action(value = "addLabGradeInfo", 
 			results = { 
-			@Result(name = "success", type = "dispatcher", location = "/adminQueryScienceRes", 
+			@Result(name = "success", type = "dispatcher", location = "/admin/addScienceRes_admin.jsp", 
 					params = {}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})

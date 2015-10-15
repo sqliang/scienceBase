@@ -85,29 +85,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="resource-box" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addResourceinfo" method="POST">
                     				<div class="form-group">
     									<label for="resourceTitle">资源名称：</label>
-    									<input type="text" class="form-control" id="resourceTitle" placeholder="输入资源名称">
+    									<input type="text" class="form-control" name="resourceinfo.resourcetitle" id="resourceTitle" placeholder="输入资源名称">
   									</div>
   									<div class="form-group">
     									<label for="resourceType">*资源开放类型：</label>
-    									<select class="form-control" id="resourceType" style="display: inline-block;width: 140px; background: transparent;">
+    									<select class="form-control" id="resourceType" name="resourceinfo.resourcetype" style="display: inline-block;width: 140px; background: transparent;">
 										    <option value="1">开放硬件</option>
 										    <option value="2">开放软件</option>
 										</select>
   									</div>
   									<div class="form-group">
     									<label for="shareMethod">共享办法：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="shareMethod" placeholder="输入内容"></textarea>
+    									<textarea name="resourceinfo.sharemethod" style="height:100px;resize:none;" class="form-control" id="shareMethod" placeholder="输入内容"></textarea>
   									</div>
   									<div class="form-group">
     									<label for="useIntroduce">使用规范：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="useIntroduce" placeholder="输入内容"></textarea>
+    									<textarea name="resourceinfo.useintroduce" style="height:100px;resize:none;" class="form-control" id="useIntroduce" placeholder="输入内容"></textarea>
   									</div>
   									<div class="form-group">
     									<label for="useIntroduce">使用统计：</label>
-    									<textarea style="height:100px;resize:none;" class="form-control" id="useIntroduce" placeholder="输入内容"></textarea>
+    									<textarea name="resourceinfo.usedinfo" style="height:100px;resize:none;" class="form-control" id="useIntroduce" placeholder="输入内容"></textarea>
   									</div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>
@@ -126,16 +126,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="scienceEdu" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addScienceedu" method="POST">
                     				<div class="form-group">
     									<label for="scienceTitle">科普教育标题：</label>
-    									<input type="text" class="form-control" id="scienceTitle" placeholder="输入科普教育标题">
+    									<input name="scienceedu.sciencetitle" type="text" class="form-control" id="scienceTitle" placeholder="输入科普教育标题">
   									</div>
   									<div class="form-group">
 						                <label for="content">内容：</label>
 						                <!-- <textarea name="content" id="content"></textarea> -->
 						                <!-- 加载编辑器的容器 -->
-									    <script id="content" name="content" type="text/plain">请输入内容</script>
+									    <script name="scienceedu.content" id="content" name="content" type="text/plain">请输入内容</script>
 						            </div>
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">发布</button>

@@ -14,5 +14,7 @@ public interface AdminManager extends BaseManager<Admin> {
 	public Admin load(String sqlkey);
 
 	public List<Admin> find(String sqlkey);
+	
+	public void checkAdmin(String username,String userpw);
 
 }

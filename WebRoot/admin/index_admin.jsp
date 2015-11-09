@@ -123,7 +123,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a href="queryNewsById?newsId=${lastNews.newsid}" target="_blank">${lastNews.newstitle}</a></td>
 									      <td>${lastNews.time}</td>
 									       <td>
-									          <a href="updateNewsinfoById?newsId=${lastNews.newsid}"><i class="fa fa-pencil"></i></a>
 									          <a href="delNewsById?newsId=${lastNews.newsid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
@@ -159,7 +158,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a href="queryNewsById?newsId=${noticeNews.newsid}" target="_blank">${noticeNews.newstitle}</a></td>
 									      <td>${noticeNews.time}</td>
 									       <td>
-									          <a href="updateNewsinfoById?newsId=${noticeNews.newsid}"><i class="fa fa-pencil"></i></a>
 									          <a href="delNewsById?newsId=${noticeNews.newsid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
@@ -195,7 +193,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a href="queryNewsById?newsId=${resReport.newsid}" target="_blank">${resReport.newstitle}</a></td>
 									      <td>${resReport.time}</td>
 									       <td>
-									          <a href="updateNewsinfoById?newsId=${resReport.newsid}"><i class="fa fa-pencil"></i></a>
 									          <a href="delNewsById?newsId=${resReport.newsid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>
@@ -231,7 +228,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									      <td><a href="queryNewsById?newsId=${resDongTai.newsid}" target="_blank">${resDongTai.newstitle}</a></td>
 									      <td>${resDongTai.time}</td>
 									       <td>
-									          <a href="updateNewsinfoById?newsId=${resDongTai.newsid}"><i class="fa fa-pencil"></i></a>
 									          <a href="delNewsById?newsId=${resDongTai.newsid}" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
 									      </td>
 									    </tr>

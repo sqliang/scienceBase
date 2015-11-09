@@ -15,7 +15,7 @@ public class MyStrutsFilter extends StrutsPrepareAndExecuteFilter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		//不过滤的url
 		String url = request.getRequestURI();
-		if (url.contains("/Gs/app/js/ueditor/jsp/controller.jsp")) {
+		if (url.contains("/scienceBase/ueditor/jsp/controller.jsp")) {
 			try{
 				chain.doFilter(req, res);
 			}catch(Exception e){

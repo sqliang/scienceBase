@@ -62,16 +62,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="panel panel-default">
         <p class="panel-heading no-collapse">后台管理系统登录</p>
         <div class="panel-body">
-            <form action="index_admin.jsp" method="POST">
+            <form id="login-form" action="loginAction" method="POST">
                 <div class="form-group">
                     <label>管理员用户名：</label>
-                    <input type="text" class="form-control span12">
+                    <input type="text" name="admin.username" class="form-control span12">
                 </div>
                 <div class="form-group">
                 <label>密码：</label>
-                    <input type="password" class="form-control span12">
+                    <input type="password" name="admin.userpw" class="form-control span12" id="js-psw">
                 </div>
-                <button type="submit" class="btn btn-primary pull-right">
+                <button type="submit" class="btn btn-primary pull-right" id="js-sub">
                 	登录
                 </button>
                 <div class="clearfix"></div>
@@ -82,5 +82,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="lib/md5.js"></script>
+    <script type="text/javascript">
+    $("#js-sub").click(function(){
+    	var initPsw = $.trim($("#js-psw").val());
+    	var codePsw = hex_md5(initPsw);
+    	$("#js-psw").val(codePsw);
+    });
+    </script>
 </body>
 </html>

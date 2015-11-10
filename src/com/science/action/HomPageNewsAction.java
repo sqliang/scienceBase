@@ -308,7 +308,9 @@ public class HomPageNewsAction extends BaseAction {
 				}
 			}
 			 newsinfoManager.delNewsById(Integer.parseInt(newsId));
-			 
+			 if(newsinfo.getStatus() == 1){
+				 picnewsManager.delPicNewsByNewsId(Integer.parseInt(newsId));
+			 }
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

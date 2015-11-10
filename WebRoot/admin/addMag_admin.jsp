@@ -86,14 +86,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			<div id="resource-box" class="panel-collapse panel-body collapse in">
                     	<div class="row">
                     		<div class="col-md-12">
-                    			<form action="">
+                    			<form action="addEvaluationinfo" method="POST" enctype="multipart/form-data">
                     				<div class="form-group">
-									    <label for="exampleInputFile">File input</label>
-									    <input type="file" id="exampleInputFile">
-									    <p class="help-block">Example block-level help text here.</p>
+									    <label for="exampleInputFile">选择上传文件：</label>
+									    <input type="file" name="file">
+									    <p class="help-block">点击选择要上传的报告文件</p>
 									 </div>
   									<div class="form-group">
-                						<button type="button" class="btn btn-primary pull-right js-btnsub">上传</button>
+                						<button type="submit" class="btn btn-primary pull-right js-btnsub">上传</button>
             						</div>
                     			</form>
                     		</div>

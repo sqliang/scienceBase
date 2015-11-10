@@ -1,8 +1,14 @@
 package com.science.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +43,12 @@ public class MaginfoManagerAction extends BaseAction {
 	private long limit;
 	private long start;
 	private long totalPages;
+	//file不是指前端jsp上传过来的文件本身，而是文件上传过来存放在临时文件夹下面的文件
+	private File file;
+	//提交过来的文件名字
+	private String fileName;
+	//提交过来的file的MIME类型
+	private String fileContentType;
 	
 	private  Evaluationinfo evaluationinfo;
 	private String evaluationId;
@@ -117,6 +129,25 @@ public class MaginfoManagerAction extends BaseAction {
 	public void setEvaluationId(String evaluationId) {
 		this.evaluationId = evaluationId;
 	}
+	public File getFile() {
+		return file;
+	}
+	public void setFile(File file) {
+		this.file = file;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileContentType() {
+		return fileContentType;
+	}
+	public void setFileContentType(String fileContentType) {
+		this.fileContentType = fileContentType;
+	}
+	
 	@Action(value = "/queryEvaluationBytime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_evaluate.jsp", 
@@ -202,10 +233,30 @@ public class MaginfoManagerAction extends BaseAction {
 						params = {"msg","${msg}"})})
 	public String addEvaluationinfo(){
 		try {
-			evaluationinfo.setTime(new Date(System.currentTimeMillis()));
-			evaluationinfoManager.save(evaluationinfo);
+			String root = ServletActionContext.getServletContext().getRealPath("/upload");
+			File temp = new File(root);
+			if(!temp.exists()){
+				temp.mkdirs();
+			}
+			System.out.println("------>>><<<===fileName:");
+			System.out.println("file:"+ file.getName());
+			System.out.println("file:"+ file.getPath());
+			InputStream is = new FileInputStream(file);
+			OutputStream os = new FileOutputStream(new File(file, file.getName()));
+			byte[] buffer = new byte[500];
+			int len = 0;
+			while(-1 != (len = is.read(buffer, 0, buffer.length))){
+				os.write(buffer);
+			}
+			os.close();
+			is.close();
+			/*evaluationinfo.setTime(new Date(System.currentTimeMillis()));
+			evaluationinfo.setEvaluationtitle(file.getName());
+			evaluationinfo.setUploadcontenturl(file.getPath());
+			evaluationinfoManager.save(evaluationinfo);*/
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}

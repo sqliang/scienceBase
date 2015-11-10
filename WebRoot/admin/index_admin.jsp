@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<div class="row">
                     		<c:forEach var="picnews" items="${picnewss}">
 	                    		<div class="col-md-3 col-sm-6">
-		                        	<img src="${picnews.imgurl}../img/demo3.jpg" style="width:240px;height:200px;"/>
+		                        	<img src="${picnews.imgurl}" style="width:240px;height:200px;"/>
 		                            <h3 class="text-muted text-center">${picnews.newsinfonewsid.newstitle}</h3>
 		                        </div>
                     		</c:forEach>

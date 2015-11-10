@@ -3,7 +3,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -110,7 +111,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</label>
   									</div>
   									<div class="form-group">
-						                <label for="content">内容：</label>
+						                <label for="content">内容：
+						                <c:choose>
+						                <c:when test="${msg != null}">
+						                	<script type="text/javascript">
+						                		alert(${msg});
+						                	</script>
+						                </c:when>
+						                </c:choose>
+						                </label>
 						                <!-- <textarea name="content" id="content"></textarea> -->
 						                <!-- 加载编辑器的容器 -->
 									    <script id="content" name="newsinfo.newscontent" type="text/plain">请输入内容</script>

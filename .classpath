@@ -108,7 +108,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-webmvc-portlet-4.0.0.M2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-websocket-4.0.0.M2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-convention-plugin-2.3.16.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-core-2.3.16.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-core-2.3.16.1.jar" sourcepath="C:/Users/sqliang/.m2/repository/org/apache/struts/struts2-core/2.3.16.1/struts2-core-2.3.16.1-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-json-plugin-2.3.16.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-junit-plugin-2.3.16.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/struts2-spring-plugin-2.3.16.1.jar"/>

@@ -3,6 +3,7 @@ package com.science.action;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import com.science.domain.Picnews;
 import com.science.serviceManager.JManager;
 import com.science.serviceManager.NewsinfoManager;
 import com.science.serviceManager.PicnewsManager;
+import com.science.util.DelFileUtil;
+import com.science.util.string.StringUtil;
 
 
 public class HomPageNewsAction extends BaseAction {
@@ -34,7 +37,7 @@ public class HomPageNewsAction extends BaseAction {
 	private List<Newsinfo> newsinfos;
 	private String newsType;
 	private String target;
-	
+	private String msg;
 
 	public List<Newsinfo> getLastNewss() {
 		return lastNewss;
@@ -82,7 +85,7 @@ public class HomPageNewsAction extends BaseAction {
 		this.resDongTais = resDongTais;
 	}
 
-
+	
 
 	public List<Picnews> getPicnewss() {
 		return picnewss;
@@ -152,6 +155,18 @@ public class HomPageNewsAction extends BaseAction {
 	public void setTarget(String target) {
 		this.target = target;
 	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+
 
 	@Action(value = "homePage", 
 			results = { 
@@ -238,12 +253,27 @@ public class HomPageNewsAction extends BaseAction {
 	@Action(value = "addNewsinfo", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/admin/addNews_admin.jsp", 
-					params = {}),
+					params = {"msg","{msg}"}),
 			@Result(name="error",type="dispatcher",location = "/jsp/error.jsp",
 					params = {"msg","${msg}"})})
 	public String addNewsinfo(){
 		try {
 			newsinfo.setTime(new Date(System.currentTimeMillis()));
+			String newsContent = newsinfo.getNewscontent();
+			String[] imgs = StringUtil.getImgs(newsContent);
+			int len = imgs.length;
+			if(len > 0){
+				newsinfo.setPictureurl1(imgs[0]);
+				if(len == 2){
+					newsinfo.setPictureurl2(imgs[1]);
+				}else if(len == 3){
+					newsinfo.setPictureurl2(imgs[1]);
+					newsinfo.setPictureurl3(imgs[2]);
+				}else if(len > 3){
+					msg ="上传图片不能大于3张";
+					return SUCCESS;
+				}
+			}
 			if(newsinfo.getStatus() == 1){
 				long newsId = jManager.saveAndGetId(newsinfo);
 				picnews = new Picnews();
@@ -255,6 +285,7 @@ public class HomPageNewsAction extends BaseAction {
 			}
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}
@@ -266,7 +297,18 @@ public class HomPageNewsAction extends BaseAction {
 					params = {"msg","${msg}"})})
 	public String delNewsById(){
 		try {
+			 newsinfo = newsinfoManager.queryNewsinfoById(Integer.parseInt(newsId));
+			 String[] picUrls = {newsinfo.getPictureurl1(),newsinfo.getPictureurl2(),newsinfo.getPictureurl3()};
+			 String[] imgUrls = null;
+			 for (int i = 0; i < picUrls.length; i++) {
+				if(picUrls[i] != null){
+					imgUrls[i] = StringUtil.filterScienceBase(picUrls[i]);
+					String  path = ServletActionContext.getServletContext().getRealPath(imgUrls[i]);
+					DelFileUtil.deleteFile(path);
+				}
+			}
 			 newsinfoManager.delNewsById(Integer.parseInt(newsId));
+			 
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;

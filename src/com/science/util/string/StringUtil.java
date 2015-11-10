@@ -83,7 +83,11 @@ public class StringUtil {
 	public static String firstCharToLower(String str){
 		return str.substring(0, 1).toLowerCase()+str.substring(1, str.length());
 	}
-	
+	/**
+	 * 改变字符串编码(from iso-8859-1 to utf-8)
+	 * @param initStr
+	 * @return
+	 */
 	public static String convertCodeToUtf(String initStr){
 		String result = null;
 		try {
@@ -93,4 +97,52 @@ public class StringUtil {
 		}
 		return result;
 	}
+	
+	public static String[] getImgs(String htmlContent){
+		String img = "";
+		Pattern p_image;
+		Matcher m_image;
+		String str = "";
+		String[] images = null;
+		
+		String regEx_img ="(<img.*src\\s*=\\s*(.*?)[^>]*?>)";
+		p_image = Pattern.compile(regEx_img, Pattern.CASE_INSENSITIVE);
+		m_image = p_image.matcher(htmlContent);
+		
+		while(m_image.find()){
+			img = m_image.group();
+			System.out.println("====>>"+img);
+			Matcher m = Pattern.compile("src\\s*=\\s*\"?(.*?)(\"|>|\\s+)").matcher(img);
+			while(m.find()){
+				String tempSelected = m.group(1);
+				if("".equals(str)){
+					str = tempSelected;
+				}else{
+					String temp = tempSelected;
+					str = str +","+ temp;
+				}
+			}
+		}
+		if (!"".equals(str)) {
+			images = str.split(",");
+		}
+		return images;
+	}
+	/*public static void main(String[] args){
+		String htmlContent = "<p><img src=\"/scienceBase/ueditor/jsp/upload/image/20151109/1447072626105000494.jpg\" title=\"1447072626105000494.jpg\" alt=\"medf.jpg\"/>请输入内容<a><img src=\"/scienceBase/ueditor/jsp/upload/image/20151109/1447072626105000494.jpg\" title=\"1447072626105000494.jpg\" alt=\"medf.jpg\"/></a></p>";
+		String[] imgs = getImgs(htmlContent);
+		for(int i = 0;i < imgs.length; i++){
+			System.out.println(imgs[i]);
+		}
+	}*/
+	public static String filterScienceBase(String path){
+		String result = null;
+		String[] str = path.split("/scienceBase");
+		result = str[1];
+		return result;
+	}
+	
+	/*public static void main(String[] args){
+		filterScienceBase("/scienceBase/ueditor/jsp/upload/image/20151109/1447078965109002381.jpg");
+	}*/
 }

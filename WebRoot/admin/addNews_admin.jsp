@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                <c:choose>
 						                <c:when test="${msg != null}">
 						                	<script type="text/javascript">
-						                		alert(${msg});
+						                		alert('${msg}');
 						                	</script>
 						                </c:when>
 						                </c:choose>

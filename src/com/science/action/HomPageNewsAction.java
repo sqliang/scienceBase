@@ -299,11 +299,15 @@ public class HomPageNewsAction extends BaseAction {
 		try {
 			 newsinfo = newsinfoManager.queryNewsinfoById(Integer.parseInt(newsId));
 			 String[] picUrls = {newsinfo.getPictureurl1(),newsinfo.getPictureurl2(),newsinfo.getPictureurl3()};
-			 String[] imgUrls = null;
+			 for (int i = 0; i < picUrls.length; i++) {
+				System.out.println("==========---->>>>");
+				System.out.println(picUrls[i]);
+			}
 			 for (int i = 0; i < picUrls.length; i++) {
 				if(picUrls[i] != null){
-					imgUrls[i] = StringUtil.filterScienceBase(picUrls[i]);
-					String  path = ServletActionContext.getServletContext().getRealPath(imgUrls[i]);
+					picUrls[i] = StringUtil.filterScienceBase(picUrls[i]);
+					String  path = ServletActionContext.getServletContext().getRealPath(picUrls[i]);
+					System.out.println(path);
 					DelFileUtil.deleteFile(path);
 				}
 			}
@@ -313,6 +317,7 @@ public class HomPageNewsAction extends BaseAction {
 			 }
 			return SUCCESS;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 	}

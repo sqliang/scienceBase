@@ -17,6 +17,6 @@ public List<Picnews> find(String sqlkey);
 
 public List<Picnews> queryPicNews();
 
-public void delPicNewsByNewsId(int newsId);
+public void delPicNewsByNewsId(long newsId);
 
 }

@@ -42,7 +42,7 @@ public class PicnewsManagerImpl extends BaseManagerImpl<Picnews> implements Picn
 		return picnewss;
 	}
 	@Override
-	public void delPicNewsByNewsId(int newsId) {
+	public void delPicNewsByNewsId(long newsId) {
 		picnewsDao.deletebyPropertys("newsid", newsId);
 	}
 	

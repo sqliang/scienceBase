@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
@@ -53,6 +54,7 @@ public class MaginfoManagerAction extends BaseAction {
 	
 	private  Evaluationinfo evaluationinfo;
 	private String evaluationId;
+	private String downloadUrl;
 	
 	public List<Evaluationinfo> getEvaluationinfos() {
 		return evaluationinfos;
@@ -148,6 +150,13 @@ public class MaginfoManagerAction extends BaseAction {
 	public void setFileContentType(String fileContentType) {
 		this.fileContentType = fileContentType;
 	}
+	public String getDownloadUrl() {
+		return downloadUrl;
+	}
+	public void setDownloadUrl(String downloadUrl) {
+		this.downloadUrl = downloadUrl;
+	}
+	
 	
 	@Action(value = "/queryEvaluationBytime", 
 			results = { 
@@ -166,7 +175,6 @@ public class MaginfoManagerAction extends BaseAction {
 			return ERROR;
 		}
 	}
-	
 	@Action(value = "/queryMagsysByTime", 
 			results = { 
 			@Result(name = "success", type = "dispatcher", location = "/jsp/list_magsys.jsp", 
@@ -234,6 +242,20 @@ public class MaginfoManagerAction extends BaseAction {
 						params = {"msg","${msg}"})})
 	public String addEvaluationinfo(){
 		try {
+			String[] tempArr = fileName.split("\\.");
+			String evaluationTitle = tempArr[0];
+			
+			evaluationinfo = new Evaluationinfo();
+			System.out.println(new Date(System.currentTimeMillis()));
+			evaluationinfo.setTime(new Date(System.currentTimeMillis()));
+			evaluationinfo.setEvaluationtitle(evaluationTitle);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String dateTime = sdf.format(new Date(System.currentTimeMillis()));
+			fileName = dateTime + "."+tempArr[1];
+			String filePath = "/upload/" + fileName;
+			evaluationinfo.setUploadcontenturl(filePath);
+			
 			String root = ServletActionContext.getServletContext().getRealPath("/upload");
 			File temp = new File(root);
 			if(!temp.exists()){
@@ -249,15 +271,7 @@ public class MaginfoManagerAction extends BaseAction {
 			}
 			os.close();
 			is.close();
-			String[] tempArr = fileName.split("\\.");
-			String evaluationTitle = tempArr[0];
-			String filePath = "/upload/" + fileName;
 			
-			evaluationinfo = new Evaluationinfo();
-			System.out.println(new Date(System.currentTimeMillis()));
-			evaluationinfo.setTime(new Date(System.currentTimeMillis()));
-			evaluationinfo.setEvaluationtitle(evaluationTitle);
-			evaluationinfo.setUploadcontenturl(filePath);
 			evaluationinfoManager.save(evaluationinfo);
 			return SUCCESS;
 		} catch (Exception e) {

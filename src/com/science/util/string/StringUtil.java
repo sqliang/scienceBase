@@ -128,13 +128,6 @@ public class StringUtil {
 		}
 		return images;
 	}
-	/*public static void main(String[] args){
-		String htmlContent = "<p><img src=\"/scienceBase/ueditor/jsp/upload/image/20151109/1447072626105000494.jpg\" title=\"1447072626105000494.jpg\" alt=\"medf.jpg\"/>请输入内容<a><img src=\"/scienceBase/ueditor/jsp/upload/image/20151109/1447072626105000494.jpg\" title=\"1447072626105000494.jpg\" alt=\"medf.jpg\"/></a></p>";
-		String[] imgs = getImgs(htmlContent);
-		for(int i = 0;i < imgs.length; i++){
-			System.out.println(imgs[i]);
-		}
-	}*/
 	public static String filterScienceBase(String path){
 		String result = null;
 		String[] str = path.split("/scienceBase");

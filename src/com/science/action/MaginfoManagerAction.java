@@ -261,7 +261,6 @@ public class MaginfoManagerAction extends BaseAction {
 			if(!temp.exists()){
 				temp.mkdirs();
 			}
-			System.out.println(fileName);
 			InputStream is = new FileInputStream(file);
 			OutputStream os = new FileOutputStream(new File(root,fileName));
 			byte[] buffer = new byte[500];

@@ -19,6 +19,7 @@ import com.science.serviceManager.EvaluationinfoManager;
 import com.science.serviceManager.JManager;
 import com.science.serviceManager.MagsysinfoManager;
 import com.science.serviceManager.SubmenuManager;
+import com.science.util.DelFileUtil;
 import com.science.util.string.StringUtil;
 
 public class MaginfoManagerAction extends BaseAction {
@@ -238,11 +239,9 @@ public class MaginfoManagerAction extends BaseAction {
 			if(!temp.exists()){
 				temp.mkdirs();
 			}
-			System.out.println("------>>><<<===fileName:");
-			System.out.println("file:"+ file.getName());
-			System.out.println("file:"+ file.getPath());
+			System.out.println(fileName);
 			InputStream is = new FileInputStream(file);
-			OutputStream os = new FileOutputStream(new File(file, file.getName()));
+			OutputStream os = new FileOutputStream(new File(root,fileName));
 			byte[] buffer = new byte[500];
 			int len = 0;
 			while(-1 != (len = is.read(buffer, 0, buffer.length))){
@@ -250,10 +249,16 @@ public class MaginfoManagerAction extends BaseAction {
 			}
 			os.close();
 			is.close();
-			/*evaluationinfo.setTime(new Date(System.currentTimeMillis()));
-			evaluationinfo.setEvaluationtitle(file.getName());
-			evaluationinfo.setUploadcontenturl(file.getPath());
-			evaluationinfoManager.save(evaluationinfo);*/
+			String[] tempArr = fileName.split("\\.");
+			String evaluationTitle = tempArr[0];
+			String filePath = "/upload/" + fileName;
+			
+			evaluationinfo = new Evaluationinfo();
+			System.out.println(new Date(System.currentTimeMillis()));
+			evaluationinfo.setTime(new Date(System.currentTimeMillis()));
+			evaluationinfo.setEvaluationtitle(evaluationTitle);
+			evaluationinfo.setUploadcontenturl(filePath);
+			evaluationinfoManager.save(evaluationinfo);
 			return SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -268,6 +273,10 @@ public class MaginfoManagerAction extends BaseAction {
 					params = {"msg","${msg}"})})
 	public String delEvaluationinfoByid(){
 		try {
+			evaluationinfo = evaluationinfoManager.queryEvaluationById(Integer.parseInt(evaluationId));
+			String filePath = evaluationinfo.getUploadcontenturl();
+			String  path = ServletActionContext.getServletContext().getRealPath(filePath);
+			DelFileUtil.deleteFile(path);
 			evaluationinfoManager.deletebyProperty("evaluationId", evaluationId);
 			return SUCCESS;
 		} catch (Exception e) {

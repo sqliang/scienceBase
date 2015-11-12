@@ -16,4 +16,6 @@ public interface EvaluationinfoManager extends BaseManager<Evaluationinfo> {
 	public List<Evaluationinfo> find(String sqlkey);
 	
 	public List<Evaluationinfo> queryEvaluationBytime();
+	
+	public Evaluationinfo queryEvaluationById(long evaluationId);
 }

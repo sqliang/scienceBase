@@ -89,9 +89,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     			<form action="addEvaluationinfo" method="POST" enctype="multipart/form-data">
                     				<div class="form-group">
 									    <label for="exampleInputFile">选择上传文件：</label>
-									    <input type="file" name="file">
+									    <input type="file" name="file" id="js-file">
 									    <p class="help-block">点击选择要上传的报告文件</p>
 									 </div>
+									 <input type="hidden" name="fileName" value="" id="val-file">
   									<div class="form-group">
                 						<button type="submit" class="btn btn-primary pull-right js-btnsub">上传</button>
             						</div>
@@ -151,6 +152,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    $(".sidebar-nav ul li ul.nav-list").removeClass("in");
 	    $(".nav-header").eq(8).removeClass("collapsed");
 	    $(".sidebar-nav ul li ul.nav-list").eq(8).addClass("in");
+	    $("#js-file").change(function(){
+	    	var filePath = $.trim($(this).val());
+	    	var fileName = filePath.split('\\')[filePath.split('\\').length-1].split('(')[0];
+	    	$("#val-file").val(fileName);
+	    	
+	    });
 	});
 	</script>
 </body>

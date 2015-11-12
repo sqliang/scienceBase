@@ -141,8 +141,4 @@ public class StringUtil {
 		result = str[1];
 		return result;
 	}
-	
-	/*public static void main(String[] args){
-		filterScienceBase("/scienceBase/ueditor/jsp/upload/image/20151109/1447078965109002381.jpg");
-	}*/
 }

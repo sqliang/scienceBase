@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<c:forEach var="evaluate" items="${evaluationinfos}">
 	                    	<li>
 								<span class="topic-name">
-									<a href="${evaluate.uploadcontenturl}" class="topic-link">
+									<a href="/scienceBase${evaluate.uploadcontenturl}" class="topic-link">
 										<font>
 											${evaluate.evaluationtitle}
 										</font>

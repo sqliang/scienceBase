@@ -38,4 +38,9 @@ public class EvaluationinfoManagerImpl extends BaseManagerImpl<Evaluationinfo> i
 		List<Evaluationinfo> evaluationinfos = findbyHql("from Evaluationinfo order by time Desc");
 		return evaluationinfos;
 	}
+	@Override
+	public Evaluationinfo queryEvaluationById(long evaluationId) {
+		Evaluationinfo evaluationinfo = evaluationinfoDao.findbyHqlUnique("from Evaluationinfo where evaluationId=?", evaluationId);
+		return evaluationinfo;
+	}
 }
